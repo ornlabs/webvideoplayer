@@ -19,4 +19,5 @@ end
 
 get '/videos' do
   "list of videos for #{session[:userid]} with token #{session[:token]}"
+  File.read('videos.html')
 end

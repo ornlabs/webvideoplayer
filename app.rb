@@ -18,6 +18,8 @@ post '/session' do
 end
 
 get '/videos' do
-  "list of videos for #{session[:userid]} with token #{session[:token]}"
-  File.read('videos.html')
+  #"list of videos for #{session[:userid]} with token #{session[:token]}"
+ session[:userid]
+ session[:token] 
+ File.read('videos.html.erb')
 end

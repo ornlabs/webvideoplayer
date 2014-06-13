@@ -64,8 +64,9 @@
                                     element.id = "0" + element.id;
                                 }
                             }
-                            myString = myString + "<div class='playVid' vidUrl=\"" + urlPrefix + element.id + urlSuffix + "\" description=\"" + element.description + "\"><a href='javascript:void(0)'>" + element.title + "</a><br/></div>"
-                        }
+                            myString = myString + "<div class='playVid' vidUrl=\"" + urlPrefix + element.id + urlSuffix + "\" description=\"" + element.description + "\"><a href='javascript:void(0)'>" + element.title + "</a><br/></div>" 
+console.log("my string is ", mystring);
+                     }
                     });
                     $('.first').html(myString);
                     $( ".playVid" ).on( "click", function() {

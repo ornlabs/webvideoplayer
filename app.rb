@@ -29,6 +29,5 @@ end
 #get '/HLSprovider-0.7.1/test/osmf/lib/ParsedQueryString.js' do
 #  File.read('HLSprovider-0.7.1/test/osmf/lib/ParsedQueryString.js') 
 #end
-get '/lessons.json' do
-  File.read('lessons.json')
-end
+#get '/lessons.json' do
+#end

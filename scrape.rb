@@ -2,7 +2,7 @@ require 'sinatra'
 require 'data_mapper'
 require 'dm-migrations'
 
-DataMapper.setup(:default, 'sqlite:///Users/josephmin/Developer/HTML/Live-Streaming-Example/tcudata.db')
+DataMapper.setup(:default, 'sqlite:///Users/tomreinhart/Desktop/tcudata.db')
 
 class Lesson
   include DataMapper::Resource

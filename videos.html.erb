@@ -53,11 +53,11 @@
                     var myString = $('.first').html();
                     var urlPrefix = 'https://account.topchefuniversityapp.com/videos/v3/tcu/lesson_full_';
                     var urlSuffix = '/playlists/playlist.m3u8?userid=';
-                    var userID =" <%=  session[:userid]%>";
+                    var userID ='<%=session[:userid]%>';
                     urlSuffix += userID + '&passhash=';
-                    var userPass = "<%= session[:token]%>";
+                    var userPass = '<%=session[:token]%>';
                     urlSuffix += userPass;
-
+                    console.log(urlSuffix);
                     $.each(data, function(index, element) {
                         if (element.description && element.id && element.title) {
                             if (element.id < 100) {

@@ -1,2 +1,2 @@
-require './app'
+require './scrape'
 run Sinatra::Application

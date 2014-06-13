@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'rest_client'
+require 'erb'
 require 'sinatra'
 require 'json'
 require 'sinatra'
@@ -67,6 +68,6 @@ end
 get '/videos' do
  session[:userid]
  session[:token] 
- File.read('videos.html.erb')
+ erb :videos
 end
 

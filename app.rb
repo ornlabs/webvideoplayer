@@ -57,7 +57,7 @@ end
 
 post '/session' do
   "The username is #{params['userid']} and the password is #{params['password']}"
- x = RestClient.post "https://account.topchefuniversityapp.com/api/v3/tcu/session", :userid =>" #{params['userid']}",:password => "#{params['password']}"
+  x = RestClient.post "https://account.topchefuniversityapp.com/api/v3/tcu/session", :userid =>" #{params['userid']}",:password => "#{params['password']}"
   parsed = JSON.parse(x)
   session[:userid] = params['userid']
   session[:token] = parsed["token"]
@@ -70,11 +70,3 @@ get '/videos' do
  File.read('videos.html.erb')
 end
 
-#get'/HLSprovider-0.7.1/test/osmf/lib/swfobject.js' do
-#  File.read("HLSprovider-0.7.1/test/osmf/lib/swfobject.js")
-#end
-#get '/HLSprovider-0.7.1/test/osmf/lib/ParsedQueryString.js' do
-#  File.read('HLSprovider-0.7.1/test/osmf/lib/ParsedQueryString.js') 
-#end
-#get '/lessons.json' do
-#end

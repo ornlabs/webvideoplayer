@@ -23,3 +23,13 @@ get '/videos' do
  session[:token] 
  File.read('videos.html.erb')
 end
+
+get'/HLSprovider-0.7.1/test/osmf/lib/swfobject.js' do
+  File.read("HLSprovider-0.7.1/test/osmf/lib/swfobject.js")
+end
+get '/HLSprovider-0.7.1/test/osmf/lib/ParsedQueryString.js' do
+  File.read('HLSprovider-0.7.1/test/osmf/lib/ParsedQueryString.js') 
+end
+get '/lessons.json' do
+  File.read('lessons.json')
+end

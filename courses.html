@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<style>
+  .wrapper {
+        width: 100%;
+        overflow: hidden; /* add this to contain floated children */
+    }
+    .first {
+        width: 500px;
+        height: 900px;
+        overflow-y:scroll;
+        float:left; /* add this */
+        margin-left: 100px;
+        margin-right: 100px;
+        border-right: dotted;
+    }
+    .second {
+        width: auto;
+        float: left; /* add this */
+    }
+    .description {
+        max-width: 800px;
+    }
+</style>
+
+
+
+<html>
+<body>
+  <div class="wrapper"> 
+    <h1 style='margin-left:50px;'>Course IDs'</h1>
+    <div class="first">
+    
+    </div>
+    
+    <div class="second"></div>
+      <div id='VideoPlayer'> </div>
+      <p id='vidDescription' class='description'></p>
+    </div> 
+    <script type='text/javascript' src='public/swfobject.js'></script>
+    <script type="text/javascript" src="public/ParsedQueryString.js"></script>
+    <script src="http://code.jquery.com/jquery-1.110.min.js"></script>
+    <script type ="text/javascript">
+      var player = null;
+      $.getJSON('courses.json',function(data) {
+        var myString = $('.first').html();
+        var urlPrefix = 'https://acount.top
+
+
+
+      }
+</body>
+</html>
+

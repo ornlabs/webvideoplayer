@@ -36,6 +36,8 @@ class Course
   property :title,          String                      # A varchar type string, for short strings
   property :description,    String, :length => 1024     # The description of the course  
   property :iap_id,         String                      # The IAP ID of the course
+
+  has n, :lessons
 end
 
 DataMapper.finalize

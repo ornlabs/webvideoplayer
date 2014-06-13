@@ -3,7 +3,7 @@ require 'rest_client'
 require 'sinatra'
 require 'json'
 enable :sessions
-
+set :static, true
 get '/' do
   File.read('postUserNameAndPassword.html')
 end
@@ -18,18 +18,17 @@ post '/session' do
 end
 
 get '/videos' do
-  #"list of videos for #{session[:userid]} with token #{session[:token]}"
  session[:userid]
  session[:token] 
  File.read('videos.html.erb')
 end
 
-get'/HLSprovider-0.7.1/test/osmf/lib/swfobject.js' do
-  File.read("HLSprovider-0.7.1/test/osmf/lib/swfobject.js")
-end
-get '/HLSprovider-0.7.1/test/osmf/lib/ParsedQueryString.js' do
-  File.read('HLSprovider-0.7.1/test/osmf/lib/ParsedQueryString.js') 
-end
+#get'/HLSprovider-0.7.1/test/osmf/lib/swfobject.js' do
+#  File.read("HLSprovider-0.7.1/test/osmf/lib/swfobject.js")
+#end
+#get '/HLSprovider-0.7.1/test/osmf/lib/ParsedQueryString.js' do
+#  File.read('HLSprovider-0.7.1/test/osmf/lib/ParsedQueryString.js') 
+#end
 get '/lessons.json' do
   File.read('lessons.json')
 end

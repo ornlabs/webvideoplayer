@@ -10,7 +10,7 @@ enable :sessions
 set :static, true
 
 
-DataMapper.setup(:default, 'sqlite:///Users/tomreinhart/Desktop/tcudata.db')
+DataMapper.setup(:default, 'sqlite:///Users/josephmin/Developer/HTML/webvideoplayer/tcudata.db')
 
 class Lesson
   include DataMapper::Resource
@@ -26,9 +26,16 @@ class Lesson
   property :favorite,       Integer                     # 0 if not favorited
   property :mastered,       Integer                     # 0 if not mastered
   property :course_id,      Integer                     # The id of the course
-  property :chef_id,        Integer                     # The id of the chef teaching the course
+  property :chef_id,        Integer                     # The id of the chef teaching the lesson
   property :iap_id,         String                      # The IAP ID of the lesson
+end
 
+class Course
+  include DataMapper::Resource
+  property :id,             Serial                      # An auto-increment integer key
+  property :title,          String                      # A varchar type string, for short strings
+  property :description,    String, :length => 1024     # The description of the course  
+  property :iap_id,         String                      # The IAP ID of the course
 end
 
 DataMapper.finalize
@@ -40,7 +47,7 @@ get '/' do
   File.read('postUserNameAndPassword.html')
 end
 
-get '/lessons.json' do
+get '/lessons.json/:courseID' do
   content_type :json
   lessons = Lesson.all
   lessons.to_json
@@ -54,6 +61,12 @@ get '/lesson/:id' do
   else
     temp.to_json
   end
+end
+
+get '/courses.json/' do
+  content_type :json
+  courses = Course.all
+  courses.to_json
 end
 
 post '/session' do

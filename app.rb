@@ -10,7 +10,8 @@ enable :sessions
 set :static, true
 
 
-DataMapper.setup(:default, 'sqlite:///Users/josephmin/Developer/HTML/webvideoplayer/tcudata.db')
+#DataMapper.setup(:default, 'sqlite:///Users/josephmin/Developer/HTML/webvideoplayer/tcudata.db')
+DataMapper.setup(:default, 'sqlite:///Users/tomreinhart/Desktop/tcudata.db')
 
 class Lesson
   include DataMapper::Resource
@@ -89,6 +90,7 @@ end
 get '/videos' do
  session[:userid]
  session[:token] 
- erb :videos
+ #erb :videos
+ File.read('courses.html')
 end
 

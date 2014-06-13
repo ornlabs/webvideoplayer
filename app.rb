@@ -49,7 +49,7 @@ end
 
 get '/lessons.json/:courseID' do
   content_type :json
-  lessons = Lesson.all
+  lessons = Lesson.all(:course_id => params[:courseID])
   lessons.to_json
 end
 
@@ -63,7 +63,7 @@ get '/lesson/:id' do
   end
 end
 
-get '/courses.json/' do
+get '/courses.json' do
   content_type :json
   courses = Course.all
   courses.to_json

@@ -53,9 +53,9 @@
                     var myString = $('.first').html();
                     var urlPrefix = 'https://account.topchefuniversityapp.com/videos/v3/tcu/lesson_full_';
                     var urlSuffix = '/playlists/playlist.m3u8?userid=';
-                    var userID ='<%=@session[:userid]%>';
+                    var userID = '<%= session[:userid].toString() %>';
                     urlSuffix += userID + '&passhash=';
-                    var userPass = '<%=@session[:token]%>';
+                    var userPass = '<%=#{session[:token]}%>';
                     urlSuffix += userPass;
                     console.log(urlSuffix);
                     $.each(data, function(index, element) {
@@ -66,7 +66,7 @@
                                     element.id = "0" + element.id;
                                 }
                             }
-                            :myString = myString + "<div class='playVid' vidUrl=\"" + urlPrefix + element.id + urlSuffix + "\" description=\"" + element.description + "\"><a href='javascript:void(0)'>" + element.title + "</a><br/></div>" 
+                            myString = myString + "<div class='playVid' vidUrl=\"" + urlPrefix + element.id + urlSuffix + "\" description=\"" + element.description + "\"><a href='javascript:void(0)'>" + element.title + "</a><br/></div>" 
                      }
                     });
                     $('.first').html(myString);

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+
+<style>
+    .wrapper {
+        width: 100%;
+        overflow: hidden; /* add this to contain floated children */
+    }
+    .first {
+        width: 500px;
+        height: 900px;
+        overflow-y:scroll;
+        float:left; /* add this */
+        margin-left: 100px;
+        margin-right: 100px;
+        border-right: dotted;
+    }
+    .second {
+        width: auto;
+        float: left; /* add this */
+        /*margin-lef: 100px;*/
+    }
+    .description {
+        max-width: 800px;
+    }
+    a {
+        color:blue;
+        text-decoration: underline;
+    }
+    a:visited {
+        color: black;
+    }
+</style>
+
+    <body>
+        <div class='wrapper'>
+            <h1 style='margin-left:50px;'>Available Streams</h1>
+            <div class='first'>
+            </div>
+            <div class='second'>
+                <div id='VideoPlayer'>
+                </div>
+                <p id='vidDescription' class='description'>
+                </p>
+            </div>
+            <script type='text/javascript' src='public/swfobject.js'></script>
+            <script type="text/javascript" src="public/ParsedQueryString.js">
+            </script>
+            <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+            <script type="text/javascript">
+                var player = null;
+                    
+                $.getJSON('lessons.json', function(data) {
+                    var myString = $('.first').html();
+                    var urlPrefix = 'https://account.topchefuniversityapp.com/videos/v3/tcu/lesson_full_';
+                    var urlSuffix = '/playlists/playlist.m3u8?userid=';
+                    var userID = '<%= session[:userid] %>';
+                    var res = userID.split("@");
+                    userID = encodeURIComponent(res[0]);
+                    userID += '@' + res[1];
+                    urlSuffix += userID + '&passhash=';
+                    var userPass = '<%=session[:token]%>';
+                    urlSuffix += userPass;
+                    console.log(urlSuffix);
+                    $.each(data, function(index, element) {
+                        if (element.description && element.id && element.title) {
+                            if (element.id < 100) {
+                                element.id = "0" + element.id;
+                                if (element.id < 10) {
+                                    element.id = "0" + element.id;
+                                }
+                            }
+                            myString = myString + "<div class='playVid' vidUrl=\"" + urlPrefix + element.id + urlSuffix + "\" description=\"" + element.description + "\"><a href='javascript:void(0)'>" + element.title + "</a><br/></div>" 
+                     }
+                    });
+                    $('.first').html(myString);
+                    $( ".playVid" ).on( "click", function() {
+                        player.setMediaResourceURL($(this).attr('vidUrl'));
+                        $('#vidDescription').text($(this).attr('description'));
+                    });
+                });
+                    
+                function jsbridge(playerId, event, data) {
+                    if (player == null) {
+                        player = document.getElementById(playerId);
+                    }
+                    switch(event) {
+                        case "onJavaScriptBridgeCreated":
+                        listStreams(teststreams,"streamlist");
+                        break;
+                    case "timeChange":
+                    case "timeupdate":
+                    case "progress":
+                        break;
+                    default:
+                      console.log(event, data);
+                    }
+                }
+                    
+                var pqs = new ParsedQueryString();
+                var parameterNames = pqs.params(false);
+                var parameters = {
+                    src: encodeURIComponent("https://account.topchefuniversityapp.com/videos/v3/tcu/lesson_full_001/playlists/playlist.m3u8"),
+                    autoPlay: "false",
+                    verbose: true,
+                    controlBarAutoHide: "true",
+                    controlBarPosition: "bottom",
+                    poster: "images/poster.png",
+                    javascriptCallbackFunction: "jsbridge",
+                    plugin_hls: "https://account.topchefuniversityapp.com/HLSProviderOSMF.swf",
+                    hls_minbufferlength: -1,
+                    hls_maxbufferlength: 30,
+                    hls_lowbufferlength: 3,
+                    hls_seekmode: "SEGMENT_SEEK",
+                    hls_startfromlevel: -1,
+                    hls_seekfromlevel: -1,
+                    hls_live_flushurlcache: false,
+                    hls_info: true,
+                    hls_debug: false,
+                    hls_debug2: false,
+                    hls_warn: true,
+                    hls_error: true,
+                    hls_fragmentloadmaxretry : -1,
+                    hls_manifestloadmaxretry : -1,
+                    hls_capleveltostage : false
+                };
+                    
+                for (var i = 0; i < parameterNames.length; i++) {
+                    var parameterName = parameterNames[i];
+                    parameters[parameterName] = pqs.param(parameterName) ||
+                    parameters[parameterName];
+                }
+                
+                var wmodeValue = "direct";
+                var wmodeOptions = ["direct", "opaque", "transparent", "window"];
+                if (parameters.hasOwnProperty("wmode")) {
+                    if (wmodeOptions.indexOf(parameters.wmode) >= 0)
+                    {
+                            wmodeValue = parameters.wmode;
+                    }
+                    delete parameters.wmode;
+                }
+                          
+                swfobject.embedSWF('https://account.topchefuniversityapp.com/GrindPlayer.swf', 'VideoPlayer', 640, 360, '10.2', 'expressInstall.swf', parameters, {
+                    allowFullScreen: true,
+                    allowScriptAccess: 'always',
+                    bgColor: '#000000',
+                    wmode: 'opaque'
+                }, {
+                    name: 'player'
+                });
+            </script>
+        </div>
+    </body>
+</html>

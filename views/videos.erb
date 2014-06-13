@@ -49,7 +49,7 @@
             <script type="text/javascript">
                 var player = null;
                     
-                $.getJSON('lessons.json', function(data) {
+                $.getJSON('lessons', function(data) {
                     var myString = $('.first').html();
                     var urlPrefix = 'https://account.topchefuniversityapp.com/videos/v3/tcu/lesson_full_';
                     var urlSuffix = '/playlists/playlist.m3u8?userid=';

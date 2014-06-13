@@ -49,13 +49,19 @@ get '/' do
   File.read('postUserNameAndPassword.html')
 end
 
+get '/lessons' do
+  content_type :json
+  lessons = Lesson.all
+  lessons.to_json
+end
+
 get '/courses/:courseID' do
   content_type :json
   lessons = Lesson.all(:course_id => params[:courseID])
   lessons.to_json
 end
 
-get '/lesson/:id' do
+get '/lessons/:id' do
   content_type :json
   temp = Lesson.get(params[:id])
   if (temp.nil?)

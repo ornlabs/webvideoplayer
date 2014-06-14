@@ -90,7 +90,7 @@ end
 get '/videos' do
  session[:userid]
  session[:token] 
- #erb :videos
- File.read('courses.html')
+ erb :videos
+ #File.read('courses.html')
 end
 

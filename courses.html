@@ -17,9 +17,6 @@
         width: auto;
         float: left; /* add this */
     }
-    .description {
-        max-width: 800px;
-    }
 </style>
 
 
@@ -49,3 +46,13 @@
 </body>
 </html>
 
+
+                    $( ".course" ).on( "click", function() {
+                        $.getJSON('courses/' + $(this).attr('course_id'), function(data) {
+                          var lessons = '';
+                          $.each(data, function(index, element) {
+                            lessons += element.title + '\n';
+                          });
+                          $('.second').html(lessons);
+                        });
+                    });

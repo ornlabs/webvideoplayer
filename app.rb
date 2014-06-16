@@ -69,8 +69,7 @@ get '/lessons' do
 end
 
 get '/course/:courseID' do
-  session[:courseID] = params['courseID']
-  erb :courseInfo
+  erb :courseInfo, :locals => {:courseID => params['courseID']}
 end
 
 get '/courses/:courseID' do
@@ -116,15 +115,14 @@ end
 
 get '/videos/:videoID' do
   content_type :json
-  course = Course.all(:id => params['videoID'])
-  course.to_json
+  lesson = Lesson.all(:id => params['videoID'])
+  lesson.to_json
 end
 
 get '/video/:videoID' do
   session[:userid]
   session[:token] 
-  session[:videoID] = params['videoID']
-  erb :videos
+  erb :videos, :locals => {:videoID => params[:videoID]}
 end
 
 get '/main' do 

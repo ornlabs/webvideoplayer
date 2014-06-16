@@ -38,23 +38,20 @@
         <script type="text/javascript" src="http://localhost:9292/public/ParsedQueryString.js"></script>
         <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
         <script type="text/javascript">
-            var courseID = '<%= session[:courseID] %>'
+            var courseID = '<%= courseID %>'
+            console.log(courseID);
             $.getJSON('http://localhost:9292/courses/' + courseID, function(data) {
-                var courses = $('.first').html();
+                var lessons = $('.first').html();
                 var description = $('.second').text();
                 $.each(data,function(index,element) {
-                  courses += "<a class='course' href='javascript:void(0)' course_id='" + element.id + "' description=\"" + element.description + "\">" + element.title + "<\a><br>";
+                  lessons += "<a class='course' href='javascript:void(0)' vidID=\"" + element.id + "\" description=\"" + element.description + "\">" + element.title + "<\a><br>";
                 });
-                $('.first').html(courses);
+                $('.first').html(lessons);
                 $('.course').on( "click", function() {
                     var description = $('.description').html();
                     description = $(this).attr('description');
                     $('.description').text(description);
-                    $.getJSON('http://localhost:9292/courses/' + courseID, function(data) {
-                        $.each(data,function(index,element) {
-                            $('.lessons').html("<a class='lesson' href='http://localhost:9292/video/" + element.id + "'>Watch now!</a>");
-                        });
-                    });
+                    $('.lessons').html("<a class='lesson' href='http://localhost:9292/video/" + $(this).attr('vidID') + "'>Watch now!</a>");
                 });
             });
         </script>

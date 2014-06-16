@@ -22,67 +22,38 @@
     .description {
         max-width: 800px;
     }
-    a {
-        color:blue;
-        text-decoration: underline;
-    }
-    a:visited {
-        color: black;
-    }
 </style>
 
     <body>
         <div class='wrapper'>
-            <h1 style='margin-left:50px;' class='title'>Available Courses</h1>
-            <div class='first'></div>
+            <div class='first'>
+                <h1 style='margin-left:50px;' class='title'>Video Metadata</h1>
+                <div class='meta'></div>
+            </div>
             <div class='second'>
+                <h1 class='videoTitle'></h1>
                 <div id='VideoPlayer'></div>
                 <p id='vidDescription' class='description'></p>
             </div>
-            <script type='text/javascript' src='public/swfobject.js'></script>
-            <script type="text/javascript" src="public/ParsedQueryString.js">
+            <script type='text/javascript' src='http://localhost:9292/public/swfobject.js'></script>
+            <script type="text/javascript" src="http://localhost:9292/public/ParsedQueryString.js">
             </script>
             <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
             <script type="text/javascript">
                 var player = null;
-                $.getJSON('courses',function(data) {
-                    var title = "";
-                    $.each(data,function(index,element) {
-                      title += "<a class='course' href='javascript:void(0)' course_id='" + element.id + "'>" + element.title + "<\a><br>";
-                    });
-                    $(".first").html(title);
-                    $(".course").on("click",function() {
-                        $('.title').text("Available Lessons");
-                        var url = "courses/" + $(this).attr('course_id');
-                        $.getJSON(url,function(data) {
-                            var lessons = "";
-                            var urlPrefix = 'https://account.topchefuniversityapp.com/videos/v3/tcu/lesson_full_';
-                            var urlSuffix = '/playlists/playlist.m3u8?userid=';
-                            var userID = '<%= session[:userid] %>';
-                            var res = userID.split("@");
-                            userID = encodeURIComponent(res[0]);
-                            userID += '@' + res[1];
-                            urlSuffix += userID + '&passhash=';
-                            var userPass = '<%=session[:token]%>';
-                            urlSuffix += userPass;
-                            $.each(data,function(index,element) {
-                                if (element.description && element.id && element.title) {
-                                    if (element.id < 100) {
-                                        element.id = "0" + element.id;
-                                        if (element.id < 10) {
-                                            element.id = "0" + element.id;
-                                        }
-                                    }
-                                }
-                                lessons += "<a class='lesson' href='javascript:void(0)' vidUrl=\"" + urlPrefix + element.id + urlSuffix + "\" description=\"" + element.description + "\">" + element.title + "</a><br/>";
-                            });
-                            $('.first').html(lessons);
-                            $( ".lesson" ).on( "click", function() {
-                                //$('.second').html("<div id='VideoPlayer'></div><p id='vidDescription' class='description'></p>");
-                                player.setMediaResourceURL($(this).attr('vidUrl'));
-                                $('#vidDescription').text($(this).attr('description'));
-                            });
-                        });
+                vidID = '<%= videoID %>';
+                jsonVidID = vidID;
+                if (vidID < 100) {
+                    vidID = "0" + vidID;
+                    if (vidID < 10) {
+                        vidID = "0" + vidID;
+                    }
+                }
+                $.getJSON('http://localhost:9292/videos/' + jsonVidID, function(data) {
+                    $.each(data, function(index, element) {
+                        $(".videoTitle").html(element.title);
+                        $(".description").html(element.description);
+                        $(".meta").html(element.title + "<br>Course ID: " + element.course_id + "<br>Chef ID: " + element.chef_id);
                     });
                 });
                 /*    
@@ -132,11 +103,20 @@
                       console.log(event, data);
                     }
                 }
-                    
+                var urlPrefix = 'https://account.topchefuniversityapp.com/videos/v3/tcu/lesson_full_';
+                var urlSuffix = '/playlists/playlist.m3u8?userid=';
+                var userID = '<%= session[:userid] %>';
+                var res = userID.split("@");
+                userID = encodeURIComponent(res[0]);
+                userID += '@' + res[1];
+                urlSuffix += userID + '&passhash=';
+                var userPass = '<%=session[:token]%>';
+                urlSuffix += userPass;
+                
                 var pqs = new ParsedQueryString();
                 var parameterNames = pqs.params(false);
                 var parameters = {
-                    src: encodeURIComponent("https://account.topchefuniversityapp.com/videos/v3/tcu/lesson_full_001/playlists/playlist.m3u8"),
+                    src: encodeURIComponent(urlPrefix + vidID + urlSuffix),
                     autoPlay: "false",
                     verbose: true,
                     controlBarAutoHide: "true",

@@ -10,8 +10,8 @@ enable :sessions
 set :static, true
 
 
-#DataMapper.setup(:default, 'sqlite:///Users/josephmin/Developer/HTML/webvideoplayer/tcudata.db')
-DataMapper.setup(:default, 'sqlite:///Users/tomreinhart/Desktop/tcudata.db')
+DataMapper.setup(:default, 'sqlite:///Users/josephmin/Developer/HTML/webvideoplayer/tcudata.db')
+#DataMapper.setup(:default, 'sqlite:///Users/tomreinhart/Desktop/tcudata.db')
 
 class Lesson
   include DataMapper::Resource
@@ -68,6 +68,11 @@ get '/lessons' do
   lessons.to_json
 end
 
+get '/course/:courseID' do
+  session[:courseID] = params['courseID']
+  erb :courseInfo
+end
+
 get '/courses/:courseID' do
   content_type :json
   lessons = Lesson.all(:course_id => params[:courseID])
@@ -109,16 +114,16 @@ post '/session' do
   redirect to('/videos')
 end
 
-get '/videos' do
- session[:userid]
- session[:token] 
- erb :videos
- #File.read('courses.html')
+get '/videos/:videoID' do
+  content_type :json
+  course = Course.all(:id => params['videoID'])
+  course.to_json
 end
 
-get '/views/videos' do
+get '/video/:videoID' do
   session[:userid]
-  session[:token]
+  session[:token] 
+  session[:videoID] = params['videoID']
   erb :videos
 end
 

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+    <style>
+        .wrapper {
+            width: 100%;
+            margin-top: 50px;
+            overflow: hidden; /* add this to contain floated children */
+        }
+        .first {
+            width: 500px;
+            height: 900px;
+            overflow-y:scroll;
+            margin-left: 100px;
+            margin-right: 100px;
+            border-right: dotted;
+            float: left;
+        }
+        .second {
+            max-width: 600px;
+            float: left;
+        }
+    </style>
+    
+    <body>
+        <div class='wrapper'>
+            <div class='first'>
+                <h2>Available Lessons</h2>
+            </div>
+            <div class='second'>
+                <h2>Lesson Description</h2>
+                <div class='description' style='height: 200px'></div>
+                <h3>Lesson Video</h3>
+                <div class='lessons'></div>
+            </div>
+        </div>
+        
+        <script type='text/javascript' src='http://localhost:9292/public/swfobject.js'></script>
+        <script type="text/javascript" src="http://localhost:9292/public/ParsedQueryString.js"></script>
+        <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script type="text/javascript">
+            var courseID = '<%= session[:courseID] %>'
+            $.getJSON('http://localhost:9292/courses/' + courseID, function(data) {
+                var courses = $('.first').html();
+                var description = $('.second').text();
+                $.each(data,function(index,element) {
+                  courses += "<a class='course' href='javascript:void(0)' course_id='" + element.id + "' description=\"" + element.description + "\">" + element.title + "<\a><br>";
+                });
+                $('.first').html(courses);
+                $('.course').on( "click", function() {
+                    var description = $('.description').html();
+                    description = $(this).attr('description');
+                    $('.description').text(description);
+                    $.getJSON('http://localhost:9292/courses/' + courseID, function(data) {
+                        $.each(data,function(index,element) {
+                            $('.lessons').html("<a class='lesson' href='http://localhost:9292/video/" + element.id + "'>Watch now!</a>");
+                        });
+                    });
+                });
+            });
+        </script>
+    </body>
+
+</html>

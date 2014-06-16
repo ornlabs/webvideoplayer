@@ -10,8 +10,8 @@ enable :sessions
 set :static, true
 
 
-#DataMapper.setup(:default, 'sqlite:///Users/josephmin/Developer/HTML/webvideoplayer/tcudata.db')
-DataMapper.setup(:default, 'sqlite:///Users/tomreinhart/Desktop/tcudata.db')
+DataMapper.setup(:default, 'sqlite:///Users/josephmin/Developer/HTML/webvideoplayer/tcudata.db')
+#DataMapper.setup(:default, 'sqlite:///Users/tomreinhart/Desktop/tcudata.db')
 
 class Lesson
   include DataMapper::Resource
@@ -68,6 +68,10 @@ get '/lessons' do
   lessons.to_json
 end
 
+get '/course/:courseID' do
+  erb :courseInfo, :locals => {:courseID => params['courseID']}
+end
+
 get '/courses/:courseID' do
   content_type :json
   lessons = Lesson.all(:course_id => params[:courseID])
@@ -108,6 +112,12 @@ get '/course_list' do
   File.read('courses.html')
 end
 
+get '/singleCourse/:courseID' do
+  content_type :json
+  course = Course.first(:id => params[:courseID])
+  course.to_json
+end
+
 post '/session' do
   "The username is #{params['userid']} and the password is #{params['password']}"
   x = RestClient.post "https://account.topchefuniversityapp.com/api/v3/tcu/session", :userid =>" #{params['userid']}",:password => "#{params['password']}"
@@ -117,16 +127,20 @@ post '/session' do
   redirect to('/main')
 end
 
-get '/videos' do
- session[:userid]
- session[:token] 
- erb :videos
+get '/videos/:videoID' do
+  content_type :json
+  lesson = Lesson.first(:id => params['videoID'])
+  authorized = [1, 6, 10]
+  #if (authorized.include?(params['videoID']))
+  lesson.to_json
 end
 
-get '/views/videos' do
+get '/video/:videoID' do
   session[:userid]
   session[:token]
-  redirect to('/main')
+#  redirect to('/main')
+ # session[:token] 
+  erb :videos, :locals => {:videoID => params[:videoID]}
 end
 
 get '/main' do 

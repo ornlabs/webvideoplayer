@@ -19,30 +19,29 @@
     }
 </style>
 
-
-
-<html>
 <body>
   <div class="wrapper"> 
     <h1 style='margin-left:50px;'>Course IDs'</h1>
     <div class="first">  
       <script type='text/javascript' src='public/swfobject.js'></script>
       <script type="text/javascript" src="public/ParsedQueryString.js"></script>
-      <script src="http://code.jquery.com/jquery-1.110.min.js"></script>
+      <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
       <script type ="text/javascript">
-        $.getJSON('courses.json',function(data) {
-        // where we get the courses available on the left click to display title names on the right  
-        // note this is where to begin tomorrow 6/16
-      });
+        $.getJSON('courses',function(data) {
+         var title = "";
+         var i = 1; 
+            $.each(data,function(index,element) {
+                title += element.title + '<br>';
+                $(".first").html(title);
+                console.log(element.title);
+              });
+        });
       </script>
    </div>
     
     <div class="second"></div>
   </div> 
 
-
-
-      }
 </body>
 </html>
 

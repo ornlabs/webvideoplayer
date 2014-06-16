@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<style>
+    .wrapper {
+        width: 100%;
+        overflow: hidden; /* add this to contain floated children */
+    }
+    .first {
+        width: 500px;
+        height: 900px;
+        overflow-y:scroll;
+        float:left; /* add this */
+        margin-left: 100px;
+        margin-right: 100px;
+        border-right: dotted;
+    }
+    .second {
+        width: auto;
+        float: left; /* add this */
+        /*margin-lef: 100px;*/
+    }
+    .description {
+        max-width: 800px;
+    }
+    a {
+        color:blue;
+        text-decoration: underline;
+    }
+    a:visited {
+        color: black;
+    }
+</style>
+
+    <body>
+        <div class='wrapper'>
+            <h1 style='margin-left:50px;' class='title'>List of Lessons by <%= currentChef.shortname %></h1>
+            <div class='first'></div>
+            <div style='margin-left:700px;' class='second'>
+            <h1 class='rightSide'> <%= currentChef.shortname %> </h1>
+            <%= currentChef.shortname%>  -- <%=currentChef.firstname%> <%= currentChef.lastname %> <br>
+            Season <%= currentChef.season_number %> <br>
+            Teaches <%= currentChef.teaches %> <br>
+            Videos <%= currentChef.videoname %><br>
+            <%= currentChef.biotext %><br>
+            </div>
+        </div>
+        </body>
+      </html>

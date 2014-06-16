@@ -79,6 +79,12 @@ get '/chefs' do
    chefs = Chef.all
    chefs.to_json
 end
+get '/chefs/:chefID' do
+  session[:userid]
+  session[:token]
+  currentChef = Chef.get(params[:chefID])
+  erb :chefMenu, :locals => {:currentChef => currentChef}
+end
 
 get '/lessons/:id' do
   content_type :json
@@ -113,13 +119,12 @@ get '/videos' do
  session[:userid]
  session[:token] 
  erb :videos
- #File.read('courses.html')
 end
 
 get '/views/videos' do
   session[:userid]
   session[:token]
-  erb :videos
+  redirect to('/main')
 end
 
 get '/main' do 

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
   <style>
     .wrapper {
           width: 100%;
@@ -42,7 +42,7 @@
      $.getJSON('chefs',function(data) {
         var chefs = "";
         $.each(data,function(index,item) {
-          chefs += "<a class='chef' href='javascript:void(0)' chef_name='" + item.id + "'>" + item.firstname + " " + item.lastname +  " (" + item.shortname + ") " + "<\a><br>";
+          chefs += "<a class='chef' href='chefs/" + item.id + "' chef_name='" + item.id + "'>" + item.firstname + " " + item.lastname +  " (" + item.shortname + ") " + "<\a><br>";
 
         });
         $(".second").html(chefs);

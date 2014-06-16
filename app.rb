@@ -104,18 +104,26 @@ get '/course_list' do
   File.read('courses.html')
 end
 
+get '/singleCourse/:courseID' do
+  content_type :json
+  course = Course.first(:id => params[:courseID])
+  course.to_json
+end
+
 post '/session' do
   "The username is #{params['userid']} and the password is #{params['password']}"
   x = RestClient.post "https://account.topchefuniversityapp.com/api/v3/tcu/session", :userid =>" #{params['userid']}",:password => "#{params['password']}"
   parsed = JSON.parse(x)
   session[:userid] = params['userid']
   session[:token] = parsed["token"]
-  redirect to('/videos')
+  redirect to('/main')
 end
 
 get '/videos/:videoID' do
   content_type :json
-  lesson = Lesson.all(:id => params['videoID'])
+  lesson = Lesson.first(:id => params['videoID'])
+  authorized = [1, 6, 10]
+  #if (authorized.include?(params['videoID']))
   lesson.to_json
 end
 

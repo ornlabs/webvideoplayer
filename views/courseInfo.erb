@@ -24,7 +24,7 @@
     <body>
         <div class='wrapper'>
             <div class='first'>
-                <h2>Available Lessons</h2>
+                <h2 class='courseTitle'></h2>
             </div>
             <div class='second'>
                 <h2>Lesson Description</h2>
@@ -39,8 +39,10 @@
         <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
         <script type="text/javascript">
             var courseID = '<%= courseID %>'
-            console.log(courseID);
             $.getJSON('http://localhost:9292/courses/' + courseID, function(data) {
+                $.getJSON('http://localhost:9292/singleCourse/' + courseID, function(course) {
+                    $('.courseTitle').html(course.title);
+                });
                 var lessons = $('.first').html();
                 var description = $('.second').text();
                 $.each(data,function(index,element) {

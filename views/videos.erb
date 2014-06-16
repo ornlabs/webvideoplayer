@@ -50,11 +50,9 @@
                     }
                 }
                 $.getJSON('http://localhost:9292/videos/' + jsonVidID, function(data) {
-                    $.each(data, function(index, element) {
-                        $(".videoTitle").html(element.title);
-                        $(".description").html(element.description);
-                        $(".meta").html(element.title + "<br>Course ID: " + element.course_id + "<br>Chef ID: " + element.chef_id);
-                    });
+                    $(".videoTitle").html(data.title);
+                    $(".description").html(data.description);
+                    $(".meta").html(data.title + "<br>Course ID: " + data.course_id + "<br>Chef ID: " + data.chef_id);
                 });
                 /*    
                 $.getJSON('lessons', function(data) {

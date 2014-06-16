@@ -10,8 +10,8 @@ enable :sessions
 set :static, true
 
 
-DataMapper.setup(:default, 'sqlite:///Users/josephmin/Developer/HTML/webvideoplayer/tcudata.db')
-#DataMapper.setup(:default, 'sqlite:///Users/tomreinhart/Desktop/tcudata.db')
+#DataMapper.setup(:default, 'sqlite:///Users/josephmin/Developer/HTML/webvideoplayer/tcudata.db')
+DataMapper.setup(:default, 'sqlite:///Users/tomreinhart/Desktop/tcudata.db')
 
 class Lesson
   include DataMapper::Resource
@@ -41,6 +41,18 @@ class Course
   has n, :lessons
 end
 
+class Chef
+  include DataMapper::Resource
+  property :id,              Serial
+  property :biotext,         String, :length => 1024
+  property :firstname,       String
+  property :lastname,        String
+  property :shortname,       String
+  property :season_number,   Integer
+  property :teaches,         String
+  property :videoname,       String
+  property :order_idx,       Integer
+end
 DataMapper.finalize
 DataMapper.auto_upgrade!
 
@@ -60,6 +72,12 @@ get '/courses/:courseID' do
   content_type :json
   lessons = Lesson.all(:course_id => params[:courseID])
   lessons.to_json
+end
+
+get '/chefs' do
+   content_type :json
+   chefs = Chef.all
+   chefs.to_json
 end
 
 get '/lessons/:id' do
@@ -103,3 +121,11 @@ get '/views/videos' do
   session[:token]
   erb :videos
 end
+
+get '/main' do 
+  session[:userid]
+  session[:token]
+  File.read('mainMenu.html')
+end
+
+

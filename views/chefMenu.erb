@@ -33,14 +33,17 @@
 
     <body>
         <div class='wrapper'>
-            <h1 style='margin-left:50px;' class='title'>List of Lessons by <%= currentChef.shortname %></h1>
-            <div class='first'></div>
+            <h1 style='margin-left:50px;' class='title'>List of Lessons by <%= currentChef.shortname.upcase %></h1>
+            <div class='first'>
+                <% videosMadeByCurrentChef.each do |lesson| %>
+                  <%= lesson.title  %><br>
+                 <% end %>
+            </div>
             <div style='margin-left:700px;' class='second'>
-            <h1 class='rightSide'> <%= currentChef.shortname %> </h1>
-            <%= currentChef.shortname%>  -- <%=currentChef.firstname%> <%= currentChef.lastname %> <br>
+            <h1 class='rightSide'> <%= currentChef.shortname.upcase %> </h1>
+            <%= currentChef.shortname.upcase%>  -- <%=currentChef.firstname%> <%= currentChef.lastname %> <br>
             Season <%= currentChef.season_number %> <br>
             Teaches <%= currentChef.teaches %> <br>
-            Videos <%= currentChef.videoname %><br>
             <%= currentChef.biotext %><br>
             </div>
         </div>

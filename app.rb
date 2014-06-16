@@ -83,7 +83,9 @@ get '/chefs/:chefID' do
   session[:userid]
   session[:token]
   currentChef = Chef.get(params[:chefID])
-  erb :chefMenu, :locals => {:currentChef => currentChef}
+  videosMadeByCurrentChef = Lesson.all(:chef_id => params[:chefID])
+  p videosMadeByCurrentChef
+  erb :chefMenu, :locals => {:currentChef => currentChef, :videosMadeByCurrentChef => videosMadeByCurrentChef}
 end
 
 get '/lessons/:id' do
@@ -112,7 +114,7 @@ post '/session' do
   parsed = JSON.parse(x)
   session[:userid] = params['userid']
   session[:token] = parsed["token"]
-  redirect to('/videos')
+  redirect to('/main')
 end
 
 get '/videos' do

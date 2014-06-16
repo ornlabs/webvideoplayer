@@ -32,20 +32,17 @@
     <script type ="text/javascript">
       $.getJSON('courses',function(data) {
         var title = "";
-        var i = 1; 
         $.each(data,function(index,element) {
           title += "<a class='course' href='javascript:void(0)' course_id='" + element.id + "'>" + element.title + "<\a><br>";
-          //console.log(element.title);
         });
         $(".first").html(title);
-        
         //why does this have to be inside the original $.getJSON? - Joe
         $(".course").on("click", function() {
           var url = "courses/" + $(this).attr('course_id');
           $.getJSON(url, function(data) {
             var lessons = "";
             $.each(data, function(index, element) {
-              lessons += "<a class='lesson' href='http://localhost:9292/views/videos'>" + element.title + "</a><br>";
+              lessons += "<a class='lesson' href='http://localhost:9292/videos'>" + element.title + "</a><br>";
               console.log(lessons);
             });
             $('.second').html(lessons);

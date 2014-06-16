@@ -33,9 +33,8 @@
 
     <body>
         <div class='wrapper'>
-            <h1 style='margin-left:50px;'>Available Streams</h1>
-            <div class='first'>
-            </div>
+            <h1 style='margin-left:50px;'>Available Courses</h1>
+            <div class='first'> </div>
             <div class='second'>
                 <div id='VideoPlayer'>
                 </div>
@@ -47,6 +46,26 @@
             </script>
             <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
             <script type="text/javascript">
+                
+                $.getJSON('courses',function(data) {
+                    var title = "";
+                    $.each(data,function(index,element) {
+                      title += "<a class='course' href='javascript:void(0)' course_id='" + element.id + "'>" + element.title + "<\a><br>";
+                    });
+                $(".first").html(title);
+                $(".course").on("click",function() {
+                  var url = "courses/" + $(this).attr('course_id');
+                   $.getJSON(url,function(data) {
+                    var lessons = "";
+                    $.each(data,function(index,element) {
+                      lessons += "<a class='lesson' href='http://localhost:9292/videos'>" + element.title + "</a><br>";
+
+                    });
+                    console.log("LESSONS" + lessons);
+                    $('.first').html(lessons);
+                   });
+                });
+              });
                 var player = null;
                     
                 $.getJSON('lessons', function(data) {
@@ -72,7 +91,7 @@
                             myString = myString + "<div class='playVid' vidUrl=\"" + urlPrefix + element.id + urlSuffix + "\" description=\"" + element.description + "\"><a href='javascript:void(0)'>" + element.title + "</a><br/></div>" 
                      }
                     });
-                    $('.first').html(myString);
+                    $('.second').html(myString);
                     $( ".playVid" ).on( "click", function() {
                         player.setMediaResourceURL($(this).attr('vidUrl'));
                         $('#vidDescription').text($(this).attr('description'));

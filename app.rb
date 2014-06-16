@@ -10,8 +10,8 @@ enable :sessions
 set :static, true
 
 
-DataMapper.setup(:default, 'sqlite:///Users/josephmin/Developer/HTML/webvideoplayer/tcudata.db')
-#DataMapper.setup(:default, 'sqlite:///Users/tomreinhart/Desktop/tcudata.db')
+#DataMapper.setup(:default, 'sqlite:///Users/josephmin/Developer/HTML/webvideoplayer/tcudata.db')
+DataMapper.setup(:default, 'sqlite:///Users/tomreinhart/Desktop/tcudata.db')
 
 class Lesson
   include DataMapper::Resource
@@ -78,19 +78,21 @@ get '/courses' do
   courses.to_json
 end
 
+get '/course_list' do
+  File.read('courses.html')
+end
 post '/session' do
   "The username is #{params['userid']} and the password is #{params['password']}"
   x = RestClient.post "https://account.topchefuniversityapp.com/api/v3/tcu/session", :userid =>" #{params['userid']}",:password => "#{params['password']}"
   parsed = JSON.parse(x)
   session[:userid] = params['userid']
   session[:token] = parsed["token"]
-  redirect to('/videos')
+  redirect to('/course_list')
 end
 
 get '/videos' do
  session[:userid]
  session[:token] 
- #erb :videos
- File.read('courses.html')
+ erb :videos
+ #File.read('courses.html')
 end
-

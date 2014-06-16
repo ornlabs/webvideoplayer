@@ -45,7 +45,7 @@
           $.getJSON(url, function(data) {
             var lessons = "";
             $.each(data, function(index, element) {
-              lessons += "<a class='lesson' href='http://localhost:9292/views/videos.erb'>" + element.title + "</a><br>";
+              lessons += "<a class='lesson' href='http://localhost:9292/views/videos'>" + element.title + "</a><br>";
               console.log(lessons);
             });
             $('.second').html(lessons);

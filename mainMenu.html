@@ -34,7 +34,7 @@
       $.getJSON('courses',function(data) {
         var courses = "";
         $.each(data,function(index,element) {
-          courses += "<a class='course' href='javascript:void(0)' course_id='" + element.id + "'>" + element.title + "<\a><br>";
+          courses += "<a class='course' href='course/" + element.id + "' course_id='" + element.id + "'>" + element.title + "<\a><br>";
         });
         $(".first").html(courses);
         });

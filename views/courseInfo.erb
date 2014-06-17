@@ -34,13 +34,13 @@
             </div>
         </div>
         
-        <script type='text/javascript' src='http://localhost:9292/public/swfobject.js'></script>
-        <script type="text/javascript" src="http://localhost:9292/public/ParsedQueryString.js"></script>
+        <script type='text/javascript' src='/public/swfobject.js'></script>
+        <script type="text/javascript" src="/public/ParsedQueryString.js"></script>
         <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
         <script type="text/javascript">
             var courseID = '<%= courseID %>'
-            $.getJSON('http://localhost:9292/courses/' + courseID, function(data) {
-                $.getJSON('http://localhost:9292/singleCourse/' + courseID, function(course) {
+            $.getJSON('/courses/' + courseID, function(data) {
+                $.getJSON('/singleCourse/' + courseID, function(course) {
                     $('.courseTitle').html(course.title);
                 });
                 var lessons = $('.first').html();
@@ -53,7 +53,7 @@
                     var description = $('.description').html();
                     description = $(this).attr('description');
                     $('.description').text(description);
-                    $('.lessons').html("<a class='lesson' href='http://localhost:9292/video/" + $(this).attr('vidID') + "'>Watch now!</a>");
+                    $('.lessons').html("<a class='lesson' href='/video/" + $(this).attr('vidID') + "'>Watch now!</a>");
                 });
             });
         </script>

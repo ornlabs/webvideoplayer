@@ -36,7 +36,7 @@
             <h1 style='margin-left:50px;' class='title'>List of Lessons by <%= currentChef.shortname.upcase %></h1>
             <div class='first'>
                 <% videosMadeByCurrentChef.each do |lesson| %>
-                  <%= lesson.title  %><br>
+                   <a href='/video/<%= lesson.id %>'><%= lesson.title %></a><br>
                  <% end %>
             </div>
             <div style='margin-left:700px;' class='second'>

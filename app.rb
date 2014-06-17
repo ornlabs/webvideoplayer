@@ -10,8 +10,7 @@ enable :sessions
 set :static, true
 
 
-DataMapper.setup(:default, 'sqlite:///Users/josephmin/Developer/HTML/webvideoplayer/tcudata.db')
-#DataMapper.setup(:default, 'sqlite:///Users/tomreinhart/Desktop/tcudata.db')
+DataMapper.setup(:default, "sqlite://#{File.expand_path(File.dirname(__FILE__))}/tcudata.db")
 
 class Lesson
   include DataMapper::Resource
@@ -132,15 +131,12 @@ get '/videos/:videoID' do
   content_type :json
   lesson = Lesson.first(:id => params['videoID'])
   authorized = [1, 6, 10]
-  #if (authorized.include?(params['videoID']))
   lesson.to_json
 end
 
 get '/video/:videoID' do
   session[:userid]
   session[:token]
-#  redirect to('/main')
- # session[:token] 
   erb :videos, :locals => {:videoID => params[:videoID]}
 end
 

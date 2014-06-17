@@ -52,7 +52,7 @@
                 $.getJSON('http://localhost:9292/videos/' + jsonVidID, function(data) {
                     $(".videoTitle").html(data.title);
                     $(".description").html(data.description);
-                    $(".meta").html(data.title + "<br>Course ID: " + data.course_id + "<br>Chef ID: " + data.chef_id);
+                    $(".meta").html(data.title + "<br>Course ID: " + data.course_id + "<br>Chef ID: " + data.chef_id + "<br><img src='https://account.topchefuniversityapp.com/resources/tcu/images/lessons/TCU_lesson_" + vidID + "_image@2x.png'></img>");
                 });
                 /*    
                 $.getJSON('lessons', function(data) {

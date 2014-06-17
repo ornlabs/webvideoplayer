@@ -40,8 +40,8 @@
             </div>
         </div>
         
-        <script type='text/javascript' src='http://localhost:9292/public/swfobject.js'></script>
-        <script type="text/javascript" src="http://localhost:9292/public/ParsedQueryString.js"></script>
+        <script type='text/javascript' src='/public/swfobject.js'></script>
+        <script type="text/javascript" src="/public/ParsedQueryString.js"></script>
         <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
         <script type="text/javascript">
             var courseID = '<%= courseID %>'
@@ -52,8 +52,10 @@
                 courseIDZ = courseID;
             }
             $('.courseImage').html("<br><img src='https://account.topchefuniversityapp.com/resources/tcu/images/courses/course_" + courseIDZ + "_icon.jpg'></img>");
-            $.getJSON('http://localhost:9292/courses/' + courseID, function(data) {
-                $.getJSON('http://localhost:9292/singleCourse/' + courseID, function(course) {
+            //$.getJSON('http://localhost:9292/courses/' + courseID, function(data) {
+               // $.getJSON('http://localhost:9292/singleCourse/' + courseID, function(course) {
+            $.getJSON('/courses/' + courseID, function(data) {
+                $.getJSON('/singleCourse/' + courseID, function(course) {
                     $('.courseTitle').html(course.title);
                 });
                 var lessons = $('.first').html();
@@ -75,6 +77,8 @@
                         }
                     }
                     $('.lessonImage').html("<img src='https://account.topchefuniversityapp.com/resources/tcu/images/lessons/TCU_lesson_" + lessID + "_image@2x.png'></img>");
+                    $('.description').text(description);
+                    $('.lessons').html("<a class='lesson' href='/video/" + $(this).attr('vidID') + "'>Watch now!</a>");
                 });
             });
         </script>

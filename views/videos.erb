@@ -35,8 +35,8 @@
                 <div id='VideoPlayer'></div>
                 <p id='vidDescription' class='description'></p>
             </div>
-            <script type='text/javascript' src='http://localhost:9292/public/swfobject.js'></script>
-            <script type="text/javascript" src="http://localhost:9292/public/ParsedQueryString.js">
+            <script type='text/javascript' src='/public/swfobject.js'></script>
+            <script type="text/javascript" src="/public/ParsedQueryString.js">
             </script>
             <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
             <script type="text/javascript">
@@ -49,7 +49,7 @@
                         vidID = "0" + vidID;
                     }
                 }
-                $.getJSON('http://localhost:9292/videos/' + jsonVidID, function(data) {
+                $.getJSON('/videos/' + jsonVidID, function(data) {
                     $(".videoTitle").html(data.title);
                     $(".description").html(data.description);
                     $(".meta").html(data.title + "<br>Course ID: " + data.course_id + "<br>Chef ID: " + data.chef_id + "<br><img src='https://account.topchefuniversityapp.com/resources/tcu/images/lessons/TCU_lesson_" + vidID + "_image@2x.png'></img>");

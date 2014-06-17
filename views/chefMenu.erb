@@ -37,11 +37,14 @@
             <div class='first'>
                 <% videosMadeByCurrentChef.each do |lesson| %>
                    <a href='/video/<%= lesson.id %>'><%= lesson.title %></a><br>
-                 <% end %>
+                     <img src='https://account.topchefuniversityapp.com/resources/tcu/images/lessons/TCU_lesson_<%='%03d' % lesson.id%>_image@2x.png' alt=<%=lesson.id%>><br>  
+                <% end %>
+                 
             </div>
             <div style='margin-left:700px;' class='second'>
             <h1 class='rightSide'> <%= currentChef.shortname.upcase %> </h1>
             <%= currentChef.shortname.upcase%>  -- <%=currentChef.firstname%> <%= currentChef.lastname %> <br>
+            <img src='https://account.topchefuniversityapp.com/resources/tcu/images/chefs/chef_large_<%=currentChef.shortname%>_default@2x.png' alt=<%=currentChef.shortname%>>
             Season <%= currentChef.season_number %> <br>
             Teaches <%= currentChef.teaches %> <br>
             <%= currentChef.biotext %><br>

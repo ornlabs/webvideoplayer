@@ -137,7 +137,7 @@ end
 get '/video/:videoID' do
   session[:userid]
   session[:token]
-  erb :videos, :locals => {:videoID => params[:videoID]}
+  erb :videos, :locals => {:videoID => params[:videoID], :access => true}
 end
 
 get '/main' do 

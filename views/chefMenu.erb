@@ -49,6 +49,98 @@
             Teaches <%= currentChef.teaches %> <br>
             <%= currentChef.biotext %><br>
             </div>
-        </div>
+            <h1 class='videoTitle'></h1>
+            <div id='VideoPlayer'></div>
+              <p id='vidDescription' class='description'></p>
+            </div>
+            <script type='text/javascript' src='/public/swfobject.js'></script>
+            <script type="text/javascript" src="/public/ParsedQueryString.js">
+            </script>
+            <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+            <script type="text/javascript">
+               var player = null;
+                var chefName = "";
+                var chefShortName = "";
+                var vidID = '';
+                var jsonVidID = vidID;
+                    function jsbridge(playerId, event, data) {
+                    if (player == null) {
+                        player = document.getElementById(playerId);
+                    }
+                    switch(event) {
+                        case "onJavaScriptBridgeCreated":
+                        listStreams(teststreams,"streamlist")
+                        break;
+                    case "timeChange":
+                    case "timeupdate":
+                    case "progress":
+                        break;
+                    default:
+                      console.log(event, data);
+                    }
+                }
+                var urlPrefix = 'https://account.topchefuniversityapp.com/videos/v3/tcu/';
+                var urlSuffix = 'chef_preview_'+ '<%=currentChef.shortname%>' + '/playlists/playlist.m3u8?userid='
+                var userID = '<%= session[:userid] %>';
+                var res = userID.split("@");
+                userID = encodeURIComponent(res[0]);
+                userID += '@' + res[1];
+                urlSuffix += userID + '&passhash=';
+                var userPass = '<%=session[:token]%>';
+                urlSuffix += userPass;
+                
+                var pqs = new ParsedQueryString();
+                var parameterNames = pqs.params(false);
+                var parameters = {
+                    src: encodeURIComponent(urlPrefix + vidID + urlSuffix),
+                    autoPlay: "false",
+                    verbose: true,
+                    controlBarAutoHide: "true",
+                    controlBarPosition: "bottom",
+                    poster: "images/poster.png",
+                    javascriptCallbackFunction: "jsbridge",
+                    plugin_hls: "https://account.topchefuniversityapp.com/HLSProviderOSMF.swf",
+                    hls_minbufferlength: -1,
+                    hls_maxbufferlength: 30,
+                    hls_lowbufferlength: 3,
+                    hls_seekmode: "SEGMENT_SEEK",
+                    hls_startfromlevel: -1,
+                    hls_seekfromlevel: -1,
+                    hls_live_flushurlcache: false,
+                    hls_info: true,
+                    hls_debug: false,
+                    hls_debug2: false,
+                    hls_warn: true,
+                    hls_error: true,
+                    hls_fragmentloadmaxretry : -1,
+                    hls_manifestloadmaxretry : -1,
+                    hls_capleveltostage : false
+                };
+                    
+                for (var i = 0; i < parameterNames.length; i++) {
+                    var parameterName = parameterNames[i];
+                    parameters[parameterName] = pqs.param(parameterName) ||
+                    parameters[parameterName];
+                }
+                
+                var wmodeValue = "direct";
+                var wmodeOptions = ["direct", "opaque", "transparent", "window"];
+                if (parameters.hasOwnProperty("wmode")) {
+                    if (wmodeOptions.indexOf(parameters.wmode) >= 0)
+                    {
+                            wmodeValue = parameters.wmode;
+                    }
+                    delete parameters.wmode;
+                }
+                          
+                swfobject.embedSWF('https://account.topchefuniversityapp.com/GrindPlayer.swf', 'VideoPlayer', 640, 360, '10.2', 'expressInstall.swf', parameters, {
+                    allowFullScreen: true,
+                    allowScriptAccess: 'always',
+                    bgColor: '#000000',
+                    wmode: 'opaque'
+                }, {
+                    name: 'player'
+                });
+            </script>
         </body>
       </html>

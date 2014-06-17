@@ -38,13 +38,10 @@
           url = "https://account.topchefuniversityapp.com/resources/tcu/images/lessons/TCU_lesson_"
           if(element.id < 10) {
             url += "00";
-            url += element.id;
           } else if(element.id < 100) {
             url += "0";
-            url += element.id;
-          } else {
-              url += element.id;
-          }
+          } else {}
+          url += element.id;
           url += "_image@2x.png"
           courses += "<a class='course' href='course/" + element.id + "' course_id='" + element.id + "'>" + element.title + "<\a><br>" 
                 + "<img src=" + url + " alt=" +element.id+">" + "<br>";

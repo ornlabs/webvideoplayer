@@ -10,7 +10,7 @@ enable :sessions
 set :static, true
 
 
-DataMapper.setup(:default, 'sqlite:///Users/josephmin/Developer/HTML/webvideoplayer/tcudata.db')
+DataMapper.setup(:default, 'sqlite:///Users/toddb/Sites/webvideoplayer/tcudata.db')
 
 class Lesson
   include DataMapper::Resource

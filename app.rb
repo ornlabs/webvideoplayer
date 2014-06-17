@@ -6,6 +6,7 @@ require 'json'
 require 'sinatra'
 require 'data_mapper'
 require 'dm-migrations'
+require 'uri'
 enable :sessions
 set :static, true
 
@@ -120,9 +121,18 @@ end
 post '/session' do
   "The username is #{params['userid']} and the password is #{params['password']}"
   x = RestClient.post "https://account.topchefuniversityapp.com/api/v3/tcu/session", :userid =>" #{params['userid']}",:password => "#{params['password']}"
+  puts "#{params['userid']}"
   parsed = JSON.parse(x)
   session[:userid] = params['userid']
   session[:token] = parsed["token"]
+  url = "https://account.topchefuniversityapp.com/api/v3/tcu/authedfor?userid="
+#  authenticationJSON = RestClient.get "https://account.topchefuniversityapp.com/api/v3/tcu/authedfor?userid=" + params['userid'] + "&passhash=" + parsed["token"]
+  url +=  CGI.escape(params['userid'])
+  url += "&passhash=" + parsed["token"]
+  puts url
+  authenticationJSON = RestClient.get url
+  session[:authedfor] = authenticationJSON
+  puts session[:authedfor]
   redirect to('/main')
 end
 

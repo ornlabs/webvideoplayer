@@ -52,8 +52,6 @@
                 courseIDZ = courseID;
             }
             $('.courseImage').html("<br><img src='https://account.topchefuniversityapp.com/resources/tcu/images/courses/course_" + courseIDZ + "_icon.jpg'></img>");
-            //$.getJSON('http://localhost:9292/courses/' + courseID, function(data) {
-               // $.getJSON('http://localhost:9292/singleCourse/' + courseID, function(course) {
             $.getJSON('/courses/' + courseID, function(data) {
                 $.getJSON('/singleCourse/' + courseID, function(course) {
                     $('.courseTitle').html(course.title);
@@ -68,7 +66,7 @@
                     var description = $('.description').html();
                     description = $(this).attr('description');
                     $('.description').html(description);
-                    $('.lessons').html("<a class='lesson' href='http://localhost:9292/video/" + $(this).attr('vidID') + "'>Watch now!</a>");
+                    $('.lessons').html("<a class='lesson' href='/video/" + $(this).attr('vidID') + "'>Watch now!</a>");
                     var lessID = $(this).attr('vidID');
                     if (lessID < 100) {
                         lessID = "0" + lessID;

@@ -27,7 +27,7 @@
     <body>
         <div class='wrapper'>
             <div class='first'>
-                <h1 style='margin-left:50px;' class='title'>Video Metadata</h1>
+                <h1 style='margin-left:50px;' class='title'>Lesson Information</h1>
                 <div class='meta'></div>
             </div>
             <div class='second'>
@@ -41,8 +41,10 @@
             <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
             <script type="text/javascript">
                 var player = null;
-                vidID = '<%= videoID %>';
-                jsonVidID = vidID;
+                var chefName = "";
+                var chefShortName = "";
+                var vidID = '<%= videoID %>';
+                var jsonVidID = vidID;
                 if (vidID < 100) {
                     vidID = "0" + vidID;
                     if (vidID < 10) {
@@ -52,7 +54,11 @@
                 $.getJSON('/videos/' + jsonVidID, function(data) {
                     $(".videoTitle").html(data.title);
                     $(".description").html(data.description);
-                    $(".meta").html(data.title + "<br>Course ID: " + data.course_id + "<br>Chef ID: " + data.chef_id + "<br><img src='https://account.topchefuniversityapp.com/resources/tcu/images/lessons/TCU_lesson_" + vidID + "_image@2x.png'></img>");
+                    $.getJSON('/chefs', function(chefs) {
+                        chefName = chefs[data.chef_id - 1].firstname + " " + chefs[data.chef_id - 1].lastname;
+                        chefShortName = chefs[data.chef_id - 1].shortname;
+                        $(".meta").html(data.title + "<br><img src='https://account.topchefuniversityapp.com/resources/tcu/images/lessons/TCU_lesson_" + vidID + "_image@2x.png'></img>" + "<br>Course ID: " + data.course_id + "<br>Chef: " + chefName + "<br><img src='https://account.topchefuniversityapp.com/resources/tcu/images/chefs/chef_small_" + chefShortName + "@2x.png'></img>");
+                    });
                 });
                 /*    
                 $.getJSON('lessons', function(data) {

@@ -83,6 +83,7 @@ get '/chefs' do
    chefs = Chef.all
    chefs.to_json
 end
+
 get '/chefs/:chefID' do
   session[:userid]
   session[:token]
@@ -148,5 +149,3 @@ get '/main' do
   session[:token]
   File.read('mainMenu.html')
 end
-
-

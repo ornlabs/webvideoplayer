@@ -88,7 +88,6 @@ get '/chefs/:chefID' do
   session[:token]
   currentChef = Chef.get(params[:chefID])
   videosMadeByCurrentChef = Lesson.all(:chef_id => params[:chefID])
-  p videosMadeByCurrentChef
   erb :chefMenu, :locals => {:currentChef => currentChef, :videosMadeByCurrentChef => videosMadeByCurrentChef}
 end
 

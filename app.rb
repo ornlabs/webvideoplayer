@@ -6,12 +6,11 @@ require 'json'
 require 'sinatra'
 require 'data_mapper'
 require 'dm-migrations'
+require 'uri'
 enable :sessions
 set :static, true
 
 DataMapper.setup(:default, "sqlite://#{File.expand_path(File.dirname(__FILE__))}/tcudata.db")
-
-
 
 class Lesson
   include DataMapper::Resource
@@ -57,7 +56,7 @@ DataMapper.finalize
 DataMapper.auto_upgrade!
 
 get '/' do
-  File.read('postUserNameAndPassword.html')
+  erb:postUserNameAndPassword
 end
 
 get '/lessons' do
@@ -107,7 +106,7 @@ get '/courses' do
 end
 
 get '/course_list' do
-  File.read('courses.html')
+  erb:courses 
 end
 
 get '/singleCourse/:courseID' do
@@ -119,27 +118,35 @@ end
 post '/session' do
   "The username is #{params['userid']} and the password is #{params['password']}"
   x = RestClient.post "https://account.topchefuniversityapp.com/api/v3/tcu/session", :userid =>" #{params['userid']}",:password => "#{params['password']}"
+  puts "#{params['userid']}"
   parsed = JSON.parse(x)
   session[:userid] = params['userid']
   session[:token] = parsed["token"]
+  url = "https://account.topchefuniversityapp.com/api/v3/tcu/authedfor?userid="
+  url +=  CGI.escape(params['userid'])
+  url += "&passhash=" + parsed["token"]
+  puts url
+  authenticationJSON = RestClient.get url
+  session[:authedfor] = JSON.parse(authenticationJSON)['iap_ids']
+  puts session[:authedfor]
   redirect to('/main')
 end
 
 get '/videos/:videoID' do
   content_type :json
   lesson = Lesson.first(:id => params['videoID'])
-  authorized = [1, 6, 10]
   lesson.to_json
 end
 
 get '/video/:videoID' do
   session[:userid]
   session[:token]
+  session[:authedfor]
   erb :videos, :locals => {:videoID => params[:videoID], :access => true}
 end
 
 get '/main' do 
   session[:userid]
   session[:token]
-  File.read('mainMenu.html')
+  erb :mainMenu
 end

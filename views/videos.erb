@@ -1,28 +1,8 @@
 <!DOCTYPE html>
 
-<style>
-    .wrapper {
-        width: 100%;
-        overflow: hidden; /* add this to contain floated children */
-    }
-    .first {
-        width: 500px;
-        height: 900px;
-        overflow-y:scroll;
-        float:left; /* add this */
-        margin-left: 100px;
-        margin-right: 100px;
-        border-right: dotted;
-    }
-    .second {
-        width: auto;
-        float: left; /* add this */
-        /*margin-lef: 100px;*/
-    }
-    .description {
-        max-width: 800px;
-    }
-</style>
+    <head>
+        <link href="/main.css" rel="stylesheet">
+    </head>
 
     <body>
         <div class='wrapper'>
@@ -44,8 +24,9 @@
                 var chefName = "";
                 var chefShortName = "";
                 var vidID = '<%= videoID %>';
-                var hasAccess = '<%= access %>';
-                console.log(hasAccess);
+                var hasAccess = false;
+                var authArray = <%= session[:authedfor].to_json %>;
+                var toCheck = "com.topchefu.iap.lesson.id";
                 var jsonVidID = vidID;
                 if (vidID < 100) {
                     vidID = "0" + vidID;
@@ -53,6 +34,23 @@
                         vidID = "0" + vidID;
                     }
                 }
+                toCheck += vidID;
+                //console.log(toCheck);
+                //console.log(authArray);
+                //console.log(authArray[0].product_id);
+                
+                //console.log(authArray.iap_ids); //UNDEFINED===============================
+                for (element in authArray) {
+                    //console.log(authArray[element]);
+                    //console.log(authArray[element].product_id[0]);
+                    if (authArray[element].product_id[0] == toCheck || authArray[element].product_id[0] == "com.topchefu.iap.master.all") {
+                        hasAccess = true;
+                    }
+                    if (hasAccess) {
+                        break;
+                    }
+                };
+                
                 $.getJSON('/videos/' + jsonVidID, function(data) {
                     $(".videoTitle").html(data.title);
                     $(".description").html(data.description);
@@ -80,7 +78,7 @@
                     }
                 }
                 var urlPrefix;
-                if (hasAccess == "true") {
+                if (hasAccess) {
                     urlPrefix = 'https://account.topchefuniversityapp.com/videos/v3/tcu/lesson_full_';
                 } else {
                     urlPrefix = 'https://account.topchefuniversityapp.com/videos/v3/tcu/lesson_preview_';
@@ -98,7 +96,7 @@
                 var parameterNames = pqs.params(false);
                 var parameters = {
                     src: encodeURIComponent(urlPrefix + vidID + urlSuffix),
-                    autoPlay: "true",
+                    autoPlay: "false",
                     verbose: true,
                     controlBarAutoHide: "true",
                     controlBarPosition: "bottom",

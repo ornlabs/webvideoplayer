@@ -59,7 +59,7 @@ DataMapper.auto_upgrade!
 
 
 get '/' do
-  File.read('postUserNameAndPassword.html')
+  erb:postUserNameAndPassword
 end
 
 get '/lessons' do
@@ -109,7 +109,7 @@ get '/courses' do
 end
 
 get '/course_list' do
-  File.read('courses.html')
+  erb:courses 
 end
 
 get '/singleCourse/:courseID' do
@@ -126,7 +126,6 @@ post '/session' do
   session[:userid] = params['userid']
   session[:token] = parsed["token"]
   url = "https://account.topchefuniversityapp.com/api/v3/tcu/authedfor?userid="
-#  authenticationJSON = RestClient.get "https://account.topchefuniversityapp.com/api/v3/tcu/authedfor?userid=" + params['userid'] + "&passhash=" + parsed["token"]
   url +=  CGI.escape(params['userid'])
   url += "&passhash=" + parsed["token"]
   puts url
@@ -152,5 +151,5 @@ end
 get '/main' do 
   session[:userid]
   session[:token]
-  File.read('mainMenu.html')
+  erb :mainMenu
 end

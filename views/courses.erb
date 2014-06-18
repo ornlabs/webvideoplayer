@@ -1,0 +1,49 @@
+  <style>
+    .wrapper {
+          width: 100%;
+          overflow: hidden; /* add this to contain floated children */
+      }
+      .first {
+          width: 500px;
+          height: 900px;
+          overflow-y:scroll;
+          float:left; /* add this */
+          margin-left: 100px;
+          margin-right: 100px;
+          border-right: dotted;
+      }
+      .second {
+          width: auto;
+          height: auto;
+          float: left; /* add this */
+      }
+  </style>
+  
+  <body>
+    <div class="wrapper"> 
+      <h1 style='margin-left:50px;'>Course IDs</h1>
+      <div class="first"></div>
+      <div class="second"></div>
+    </div>
+    <script type ="text/javascript">
+      $.getJSON('courses',function(data) {
+        var title = "";
+        $.each(data,function(index,element) {
+          title += "<a class='course' href='javascript:void(0)' course_id='" + element.id + "'>" + element.title + "<\a><br>";
+        });
+        $(".first").html(title);
+        //why does this have to be inside the original $.getJSON? - Joe
+        $(".course").on("click", function() {
+          var url = "courses/" + $(this).attr('course_id');
+          $.getJSON(url, function(data) {
+            var lessons = "";
+            $.each(data, function(index, element) {
+              lessons += "<a class='lesson' href='/videos'>" + element.title + "</a><br>";
+              console.log(lessons);
+            });
+            $('.second').html(lessons);
+          });
+        });
+      });
+    </script>
+  </body>

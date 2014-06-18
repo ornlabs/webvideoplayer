@@ -1,0 +1,70 @@
+// all the Sasses here.
+
+// @include respond-to(handhelds) {
+// }
+// @include respond-to(medium-screens) {
+// }
+// @include respond-to(wide-screens) { 
+// }
+
+.forum {
+  .description {
+    margin-bottom:.6em;
+  }
+}
+
+#description {
+  @extend %box;
+  display: block;
+  margin-bottom: $base-spacing-unit;
+}
+
+.category {
+  margin-top: $half-spacing-unit;
+}
+
+#forums_container {
+  .head {
+    margin:.3em 0 .5em;
+  }
+}
+
+.last_post {
+  color:$note-color;
+
+  a {
+    font-weight: 700;
+  }
+}
+
+#topic {
+  .media__img {
+    float:none; 
+
+    .icon {display: none;}
+  }
+
+  .username {
+    font-weight: 700;
+    font-size: 1.1em;
+    display: inline-block;
+  }
+  time {
+    margin-left: .3em;
+
+  }
+
+  .user {
+    margin: 1em 0;
+  }
+}
+
+
+.btn-group {
+  margin-top:1.0em;
+}
+
+.row {
+  @extend %box;
+  margin-bottom:$half-spacing-unit;
+}

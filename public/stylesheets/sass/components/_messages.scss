@@ -1,0 +1,49 @@
+.messages {
+  list-style:none;
+  margin:0;
+
+  .message {
+    @extend %box;
+    margin-bottom:$base-spacing-unit*2;
+    //background-color:rgba(white, .2);
+    border:4px solid $accent-color;
+    position: relative;
+  }
+
+  .date {
+    top:-$base-spacing-unit*1.3;
+    margin-bottom:-$base-spacing-unit*1.3;
+    background:lighten($light-accent-color, 10%);
+    display: inline-block;
+    position: relative;
+    padding:$quarter-spacing-unit $half-spacing-unit;
+    font:700 .85em/1 $heading-font-family;
+    border:1px solid rgba($base-color, .4);
+    @include border_radius();
+    box-shadow:$global-box-shadow-light;
+  }
+  .dated-title {
+    margin-top:-$half-spacing-unit;
+  }
+  .mark {
+    position: relative;
+    right:-$half-spacing-unit;
+    background:$on_track;
+    float:right;
+    border:1px solid darken($on_track, 5%);
+  }
+
+  &.messages--read .message {
+    border:0;
+    color:$subheading-color;
+
+    h3 {
+      color:$subheading-color;
+    }
+
+    .date {
+      background:lighten($light-accent-color, 8%);
+      border:1px solid rgba($base-color, .3);
+    }
+  }
+}

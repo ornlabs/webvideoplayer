@@ -1,0 +1,235 @@
+@mixin respond-to($media) {
+  @if $media == handhelds {
+    @media only screen and (max-width: $break-small) { @content; }
+  }
+  @else if $media == medium-screens {
+    @media only screen and (min-width: $break-small + 1) { @content; }
+  }
+  @else if $media == mediumlarge-screens {
+    @media only screen and (min-width: $break-medium + 1) { @content; }
+  }
+  @else if $media == wide-screens {
+    @media only screen and (min-width: $break-large) { @content; }
+  }
+}
+
+@mixin trailer($lines: 1, $font-size: $base-font-size, $property: margin) {
+  #{$property}-bottom: rhythm($lines, $font-size);
+}
+
+@mixin leader($lines: 1, $font-size: $base-font-size, $property: margin) {
+  #{$property}-top: rhythm($lines, $font-size);
+}
+
+@mixin border-radius($radius: $border-radius){
+  border-radius:$radius;
+}
+
+@mixin button-common-styles {
+  letter-spacing: 1px;
+  line-height: 1;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: $half-spacing-unit;
+  outline: none;
+  cursor: pointer;
+}
+
+@mixin transition($transition...) {
+  // defining prefixes so we can use them in mixins below
+  $prefixes:      ("-webkit",  "");
+  @each $prefix in $prefixes {
+    #{$prefix}-transition: $transition;
+  }
+
+  transition: $transition;
+}
+
+
+@mixin button-dark {
+  font-weight: 600;
+  text-shadow: 0px -1px 0px darken($base-color, 20%);
+  color: #fff;
+  background: $base-color;
+
+  &:hover, &:focus {
+    color: $action-color;
+    background: lighten($base-color, 5%);
+  }
+
+  &:active {
+    background: darken($base-color, 15%);
+  }
+
+  &.is-active {
+    &:hover, &:focus {
+      color: $base-color;
+    }
+  }
+}
+
+@mixin button-light {
+  text-shadow: 0px -1px 0px darken($neutral-accent-color, 25%);
+  color: lighten($base-color, 8%);
+  background: lighten($neutral-accent-color, 8%);
+
+  &:hover, &:focus {
+    color: lighten($base-color, 8%);
+    background: darken($neutral-accent-color, 6%);
+  }
+
+  &:active {
+    background: darken($neutral-accent-color, 12%);
+  }
+
+  &.is-active {
+    &:hover, &:focus {
+      color: $base-color;
+    }
+  }
+}
+
+@mixin custom-select {
+  @include transition(all 0.2s ease);
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  padding: $half-spacing-unit 0 $half-spacing-unit $half-spacing-unit;
+  overflow: hidden;
+  cursor: pointer;
+  background-clip: padding-box;
+
+  .arrow-spacer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 28px;
+    height: 100%;
+  }
+
+  .arrow {
+    @include transition(border-color 0.2s ease);
+    position: absolute;
+    top: 42.8571429%; // scales with height of select
+    right: 10px;
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 4px solid #777;
+    border-right: 4px solid transparent;
+    border-bottom: none;
+    border-left: 4px solid transparent;
+  }
+
+  select {
+    position: relative;
+    z-index: 2;
+    display: block;
+    line-height: 1;
+    width: 100%;
+    margin: 0;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    background: transparent;
+    background-color: transparent;
+    -moz-appearance: window;
+    -moz-padding-end: 19px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+}
+
+@mixin custom-radio-checkbox {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 0.5em;
+  margin-left: -16px; // compensate for hidden native input
+  vertical-align: middle;
+}
+
+@mixin custom-select-core-styles {
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  box-shadow: 0px 1px 4px rgba(#ccc, .4);
+  background: #fff;
+
+  &:hover, &:focus {
+    border-color: $action-color;
+  }
+
+  select {
+    line-height: $base-spacing-unit;
+    color: lighten($body-color, 10%);
+  }
+}
+
+@function strip-units($number) {
+  @return $number / ($number * 0 + 1);
+}
+
+%alert {
+  margin-bottom:20px;
+  padding:10px;
+  border:solid #B3CCA9;
+  border-width:1px 1px 1px 4px;
+  background-color: #dff0d8;
+  border-radius:$border-radius;
+  .close {
+    margin-right:6px;
+    background:#fff;
+    border:0;
+    @include font-size(20px, false);
+    padding:6px;
+    line-height:.5;
+  }
+  button {
+    -webkit-appearance: none;
+  }
+}
+
+%box {
+  padding:$half-spacing-unit $base-spacing-unit;
+  border: 1px solid darken($border-color, 8%);
+  background:rgba(255,255,255,.3);
+  border-radius:$border-radius;
+  box-shadow: 0px 2px 3px rgba(#000, .1);
+}
+
+%input {
+  @include border-radius;
+  border:1px solid #b6b7ad;
+  padding:.6em;
+  background-color:#fff;
+  width:100%;
+  transition: all 0.2s ease;
+  &:hover {
+    border-color:#919384;
+  }
+}
+
+%standout { 
+  background:lighten($light-accent-color, 14%);
+  padding:0 $quarter-spacing-unit;
+  margin:$quarter-spacing-unit;
+  display: inline-block;
+  overflow: hidden;
+  @include border-radius;
+}
+
+%badge {
+  content:"3";
+  font-family:Helvetica, Arial, sans-serif;
+  background:$warning-color;
+  font-size:.8em;
+  margin-left:$half-spacing-unit;
+  padding:2px 6px;
+  border:2px solid #fff;
+  color:#fff;
+  @include border_radius(300px);
+}

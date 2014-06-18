@@ -1,0 +1,127 @@
+/*****
+ * _    ____ _   _ ____ _  _ ___    ____ ___ _   _ _    ____ ____
+ * |    |__|  \_/  |  | |  |  |     [__   |   \_/  |    |___ [__
+ * |___ |  |   |   |__| |__|  |     ___]  |    |   |___ |___ ___]
+ *
+ *****/
+
+.l-container {
+  position: relative;
+  height: 100%;
+  padding:$base-spacing-unit;
+  max-width:1020px;
+  margin: 0 auto;
+  overflow: hidden;
+  min-height: 400px;
+}
+
+.l-framing-wrap {
+  @extend .cf;
+}
+
+
+.l-framing {
+  display: table;
+  width: 100%;
+  min-width: 768px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 $base-spacing-unit;
+}
+
+%l-framing-base {
+  position: relative;
+  display: table-cell;
+  padding-bottom: $base-spacing-unit;
+  vertical-align: bottom;
+}
+
+.l-framing-l {
+  @extend %l-framing-base;
+  text-align: left;
+}
+
+.l-framing-r {
+  @extend %l-framing-base;
+  text-align: right;
+}
+
+.l-nav {
+  //float: left;
+}
+
+.l-usermenu {
+  margin-bottom: $base-spacing-unit;
+}
+
+.l-usermenu-inline {
+  display: inline-block;
+}
+
+.l-wrapper {
+  min-width: 768px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 $base-spacing-unit;
+}
+
+.l-alert-wrapper {
+  padding-top: $base-spacing-unit;
+}
+
+.l-alert {
+  max-width: 30%;
+}
+
+.l-content {
+  position: relative;
+  padding: $base-spacing-unit 0 $base-spacing-unit;
+}
+
+.l-content-header {
+  margin-bottom: $base-spacing-unit;
+  border-bottom: 1px solid $neutral-accent-color;
+}
+
+.l-content-header-inline {
+  display: inline-block;
+  margin-right: $base-spacing-unit*2;
+  vertical-align: bottom;
+}
+
+.l-content-main {
+  position: relative;
+}
+
+.l-content-main-heading {
+  margin-bottom: $base-spacing-unit*2;
+}
+
+.l-content-main-action {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.l-testset-container {
+  margin-bottom: $base-spacing-unit;
+}
+
+.l-test-container {
+  display: table;
+}
+
+.l-action-menu {
+  position: absolute;
+  top: $base-spacing-unit;
+  right: 0;
+  text-align: right;
+  width: 70%;
+}
+
+.l-action-menu-inner {
+  display: inline-block;
+  margin-bottom: $half-spacing-unit;
+  margin-left: $half-spacing-unit;
+  vertical-align: middle;
+}

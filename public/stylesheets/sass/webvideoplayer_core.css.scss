@@ -1,0 +1,46 @@
+/**
+ *  INITIALIZATION FILE
+ *  centralize all partials in this file!
+ *
+ **/
+
+ // standard "do not modify" warning; "*!" ensures it is always present in
+ // compiled CSS, even after minification
+
+ /*!
+  * DO NOT MODIFY COMPILED CSS!
+  * This file was generated using Sass (http://sass-lang.com)
+  */
+@charset "UTF-8";
+
+// FRAMEWORKS
+
+// Initialize Compass
+//@import "compass";
+
+// Initialize Inuit.css. 'vars' must be imported first as it includes variables
+
+// which control how much of the Inuit framework is included in the final
+// compiled CSS file, as well as options to override default variables such
+// as font sizes and spacing units.
+@import "vars";
+@import "inuitcss/inuit";
+@import "csswizardry-grids";
+
+
+// custom support mixins
+@import "mixins";
+@import "layout";
+@import "base";
+
+// components
+//@import "components/success_stories";
+//@import "components/comments";
+//@import "components/messages"; // used for system messages like announcements
+//@import "components/global"; // main menu/navigation, header, footer
+//@import "components/mmenu"; // styling specific to the Mmenu script for offscreen nav
+//@import "components/tables"; // main (mobile offscreen) menu/navigation
+//@import "components/datepicker"; // jquery-ui datepicker
+@import "components/btns"; // buttons, of course
+//@import "components/forums"; // styling the discussion forums (main nav)
+//@import "components/users"; //users show page ID card styling

@@ -1,0 +1,350 @@
+// all the Sasses here.
+
+// @include respond-to(medium-screens) {
+// }
+// @include respond-to(wide-screens) { 
+// }
+
+
+.success-stories {
+  .ss-cover-photo {
+    margin-bottom: 20px;
+    border: 1px solid darken($border-color, 8%);
+    border-radius:$border-radius;
+    box-shadow: 0px 2px 3px rgba(#000, .1);
+    @include respond-to(handhelds) {
+      background-image:none!important;
+      background-color:rgba(255,255,255,.3);
+    }
+    @include respond-to(medium-screens) {
+      background:url(image_path('event-cover.jpg')) center center no-repeat rgba(255,255,255,.3);
+      background-size:cover;
+      min-height:320px;
+      // position: relative;
+      overflow:hidden;
+    }
+    .ss-title {
+      width:100%;
+      margin:0;
+      padding: 20px 0;
+      // position: absolute;
+      // bottom:0;
+      @include respond-to(handhelds) {
+        margin-left: -10px;
+      }
+      @include respond-to(medium-screens) {
+        margin:150px 0 0 0;
+        border-top:1px $color-1 solid;
+        background-color:rgba(255,255,255,.9);
+      }
+      h1 {
+        // font-size: 1.35em;
+        @include respond-to(handhelds) {
+          margin-top: 10px;
+        }
+        @include respond-to(medium-screens) {
+          font-size: 1.35em;
+        }
+        @include respond-to(wide-screens) {
+          font-size: 2em;
+        }
+      }
+      h4 {
+        font-size: 0.95em;
+        @include respond-to(handhelds) {
+          margin-bottom: 10px;
+        }
+        @include respond-to(medium-screens) {
+          font-size: 1em;
+        }
+        @include respond-to(wide-screens) {
+          font-size: 1.2em;
+        }
+      }
+      // .ss-avatar-container {
+      //   background-color:#ffffff;
+      //   border:1px $color-1 solid;
+      //   border-radius:$border-radius;
+      //   display: none;
+      //   margin-top: -90px;
+      //   @include respond-to(medium-screens) {
+      //     padding:5px;
+      //     display: inline-block;
+      //   }
+      //   @include respond-to(wide-screens) {
+      //     padding:10px;
+      //   }
+      //   .ss-avatar {
+      //     background-size:cover;
+      //     @include respond-to(medium-screens) { 
+      //       width:70px;
+      //       height:70px;
+      //     }
+      //     @include respond-to(mediumlarge-screens) { 
+      //       width:100px;
+      //       height:100px;
+      //     }
+      //     @include respond-to(wide-screens) { 
+      //       width:140px;
+      //       height:140px;
+      //     }
+      //   }
+      // }
+      .ss-avatar-container {
+        background-color:#ffffff;
+        border:1px $color-1 solid;
+        border-radius:$border-radius;
+        display: none;
+        width:100%;
+        margin: -70px 0 10px 0;
+        @include respond-to(medium-screens) {
+          padding:5px;
+          display: block;
+        }
+        @include respond-to(wide-screens) {
+          padding:10px;
+          margin-top: -90px;
+        }
+        .ss-avatar {
+          width:100%;
+          background-position:center center;
+          background-size:cover;
+          background-repeat:no-repeat;
+          display: inline-block;
+          vertical-align: top;
+          &:before{ //http://www.mademyday.de/css-height-equals-width-with-pure-css.html
+            content: "";
+            display: block;
+            padding-top: 100%;
+          }
+          // background-size:cover;
+          // @include respond-to(medium-screens) { 
+          //   width:70px;
+          //   height:70px;
+          // }
+          // @include respond-to(mediumlarge-screens) { 
+          //   width:100px;
+          //   height:100px;
+          // }
+          // @include respond-to(wide-screens) { 
+          //   width:140px;
+          //   height:140px;
+          // }
+        }
+      }
+      .ss-ambassador {
+        h3 {
+          @include respond-to(medium-screens) {
+            padding-left:12px;
+          }
+          &.ss-username {
+            @include respond-to(handhelds) {
+              font-size: 1.05em;
+            }
+          }
+        }
+        .ss-label {
+          @include respond-to(medium-screens) {
+            padding-left:12px;
+          }
+        }
+      }
+      .brand-thumb-container {
+        margin-top: 5px;
+        // margin-bottom: 10px;
+        margin-right: -10px;
+        .brand-thumb {
+          text-align: center;
+          vertical-align: middle;
+          display: inline-block;
+          width:25%;
+          // height: 40px;
+          img {
+            // height:100%;
+            font-size: 0.6em;
+            line-height: 0.9em;
+            border: 1px solid darken($border-color, 8%);
+            display: block;
+          }
+        }
+        h3 {
+          padding-left:5px;
+          vertical-align: middle;
+          display: inline-block;
+          width: 70%;
+        }
+      }
+    }
+  }
+  .ss-label {
+    margin: 10px 0 0 0;
+    color:$color-3;
+    font-size: 0.8em;
+    line-height: 1.2em;
+    @include respond-to(handhelds) {
+      font-size: 0.85em;
+    }
+    @include respond-to(wide-screens) {
+      font-size: 0.7em;
+      line-height: 1.2em;
+    }
+    &.no-margin {
+      margin-top: 0;
+    }
+    // &:not(:first-of-type) {
+    //  margin-top: 10px;
+    // }
+  }
+  h3 {
+    margin:2px 0;
+    color:#000000;
+    font-size: 1em;
+    line-height: 1.1em;
+    @include respond-to(medium-screens) {
+      font-size: 1.1em;
+      line-height: 1.1em;
+    }
+    // @include respond-to(wide-screens) {
+    //   font-size: 1em;
+    //   line-height: 1.06em;
+    // }
+  }
+  .ss-goal-container {
+    margin-right: -10px;
+  }
+  .ss-goal {
+    width:90%;
+    text-align:center;
+    border:1px $color-1 solid;
+    border-radius:$border-radius;
+    background-color:#ffffff;
+    @include respond-to(handhelds) {
+      width:auto;
+      padding:5px 0;
+      margin-right: 0;
+      border:none;
+      border-radius:0;
+      background-color:transparent;
+      border-top:1px transparentize($color-3, 0.9) solid;
+      &:after {
+        content: '';
+        display: block;
+        clear: both;
+      }
+    }
+    .ss-label {
+      margin:0;
+      background-color:$color-1;
+      padding:2px;
+      color:#ffffff;
+      @include respond-to(handhelds) {
+        color:$color-3;
+        font-size: 1.25em;
+        line-height: 1.06em;
+        text-align: left;
+        float: left;
+        background-color:transparent;
+        padding-left:0;
+      }
+      @include respond-to(medium-screens) {
+        min-height: 30px;
+      }
+      @include respond-to(mediumlarge-screens) {
+        min-height: 0;
+      }
+    }
+    h2 {
+      // color:$success-color;
+      font-size: 1.2em;
+      line-height: 1.08em;
+      margin:0 0 8px 0;
+      @include respond-to(handhelds) {
+        float: right;
+        margin:0;
+        font-size: 1.25em;
+      }
+      @include respond-to(mediumlarge-screens) { 
+        font-size: 1.65em;
+        line-height: 1.08em;
+      }
+      @include respond-to(wide-screens) { 
+        font-size: 2em;
+        line-height: 1.06em;
+      }
+    }
+  }
+  .ss-deets-container {
+    h4 {
+      margin-bottom: 10px;
+      border-bottom:1px transparentize($color-3, 0.9) solid;
+      text-transform: capitalize;
+      @include respond-to(handhelds) {
+        font-size: 1.05em;
+        margin-bottom: 5px;
+      }
+      @include respond-to(medium-screens) {
+        font-size: 1.2em;
+      }
+      @include respond-to(wide-screens) {
+        font-size: 1.3em;
+      }
+    }
+    p, li {
+      @include respond-to(handhelds) {
+        font-size: 1em;
+        line-height: 1.33em;
+      }
+      @include respond-to(medium-screens) {
+        font-size: 1em;
+        line-height: 1.35em;
+      }
+      @include respond-to(wide-screens) {
+        font-size: 1em;
+        line-height: 1.29em;
+      }
+    }
+    .block-list {
+      @include respond-to(handhelds) {
+        padding:10px;
+      }
+    }
+  }
+  .ss-photo-grid {
+    margin-top: 20px;
+
+    @include respond-to(wide-screens) {
+      margin-top: 0px;
+    }
+  }
+  .ss-photo-container {
+    .ss-photo {
+      display: block;
+      width:100%;
+      height:70px;
+      @include respond-to(medium-screens) {
+        height:40px;
+      }
+      @include respond-to(mediumlarge-screens) {
+        height:70px;
+      }
+      @include respond-to(wide-screens) {
+        height:95px;
+      }
+      margin-bottom:15px;
+      border: 1px solid darken($border-color, 8%);
+      background-size:cover;
+      background-repeat:no-repeat;
+      cursor: pointer;
+      &:hover {
+        border-color:#ffffff;
+        box-shadow: 0px 0 5px rgba(#000, .5);
+      }
+    }
+  }
+}
+
+
+
+
+
+

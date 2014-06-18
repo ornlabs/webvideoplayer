@@ -1,0 +1,22 @@
+ .wrapper {
+        width: 100%;
+        overflow: hidden; /* add this to contain floated children */
+    }
+    .first {
+        width: 500px;
+        height: 900px;
+        overflow-y:scroll;
+        float:left; /* add this */
+        margin-left: 100px;
+        margin-right: 100px;
+        border-right: dotted;
+    }
+    .second {
+        width: auto;
+        float: left; /* add this */
+        /*margin-lef: 100px;*/
+    }
+    .description {
+        max-width: 800px;
+    }
+

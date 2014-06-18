@@ -9,8 +9,9 @@ require 'dm-migrations'
 enable :sessions
 set :static, true
 
+DataMapper.setup(:default, "sqlite://#{File.expand_path(File.dirname(__FILE__))}/tcudata.db")
 
-DataMapper.setup(:default, 'sqlite:///Users/toddb/Sites/webvideoplayer/tcudata.db')
+
 
 class Lesson
   include DataMapper::Resource
@@ -36,24 +37,60 @@ class Course
   property :title,          String                      # A varchar type string, for short strings
   property :description,    String, :length => 1024     # The description of the course  
   property :iap_id,         String                      # The IAP ID of the course
+
+  has n, :lessons
 end
 
+class Chef
+  include DataMapper::Resource
+  property :id,              Serial
+  property :biotext,         String, :length => 1024
+  property :firstname,       String
+  property :lastname,        String
+  property :shortname,       String
+  property :season_number,   Integer
+  property :teaches,         String
+  property :videoname,       String
+  property :order_idx,       Integer
+end
 DataMapper.finalize
 DataMapper.auto_upgrade!
-
-
 
 get '/' do
   File.read('postUserNameAndPassword.html')
 end
 
-get '/lessons.json/:courseID' do
+get '/lessons' do
   content_type :json
   lessons = Lesson.all
   lessons.to_json
 end
 
-get '/lesson/:id' do
+get '/course/:courseID' do
+  erb :courseInfo, :locals => {:courseID => params['courseID']}
+end
+
+get '/courses/:courseID' do
+  content_type :json
+  lessons = Lesson.all(:course_id => params[:courseID])
+  lessons.to_json
+end
+
+get '/chefs' do
+   content_type :json
+   chefs = Chef.all
+   chefs.to_json
+end
+
+get '/chefs/:chefID' do
+  session[:userid]
+  session[:token]
+  currentChef = Chef.get(params[:chefID])
+  videosMadeByCurrentChef = Lesson.all(:chef_id => params[:chefID])
+  erb :chefMenu, :locals => {:currentChef => currentChef, :videosMadeByCurrentChef => videosMadeByCurrentChef}
+end
+
+get '/lessons/:id' do
   content_type :json
   temp = Lesson.get(params[:id])
   if (temp.nil?)
@@ -63,10 +100,20 @@ get '/lesson/:id' do
   end
 end
 
-get '/courses.json/' do
+get '/courses' do
   content_type :json
   courses = Course.all
   courses.to_json
+end
+
+get '/course_list' do
+  File.read('courses.html')
+end
+
+get '/singleCourse/:courseID' do
+  content_type :json
+  course = Course.first(:id => params[:courseID])
+  course.to_json
 end
 
 post '/session' do
@@ -75,12 +122,24 @@ post '/session' do
   parsed = JSON.parse(x)
   session[:userid] = params['userid']
   session[:token] = parsed["token"]
-  redirect to('/videos')
+  redirect to('/main')
 end
 
-get '/videos' do
- session[:userid]
- session[:token] 
- erb :videos
+get '/videos/:videoID' do
+  content_type :json
+  lesson = Lesson.first(:id => params['videoID'])
+  authorized = [1, 6, 10]
+  lesson.to_json
 end
 
+get '/video/:videoID' do
+  session[:userid]
+  session[:token]
+  erb :videos, :locals => {:videoID => params[:videoID], :access => true}
+end
+
+get '/main' do 
+  session[:userid]
+  session[:token]
+  File.read('mainMenu.html')
+end

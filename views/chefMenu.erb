@@ -33,56 +33,43 @@
 
     <body>
         <div class='wrapper'>
-            <h1 style='margin-left:50px;'>Available Streams</h1>
+            <h1 style='margin-left:50px;' class='title'>List of Lessons by <%= currentChef.shortname.upcase %></h1>
             <div class='first'>
+                <% videosMadeByCurrentChef.each do |lesson| %>
+                   <a href='/video/<%= lesson.id %>'><%= lesson.title %></a><br>
+                     <img src='https://account.topchefuniversityapp.com/resources/tcu/images/lessons/TCU_lesson_<%='%03d' % lesson.id%>_image@2x.png' alt=<%=lesson.id%>><br>  
+                <% end %>
+                 
             </div>
-            <div class='second'>
-                <div id='VideoPlayer'>
-                </div>
-                <p id='vidDescription' class='description'>
-                </p>
+            <div style='margin-left:700px;' class='second'>
+            <h1 class='rightSide'> <%= currentChef.shortname.upcase %> </h1>
+            <%= currentChef.shortname.upcase%>  -- <%=currentChef.firstname%> <%= currentChef.lastname %> <br>
+            <img src='https://account.topchefuniversityapp.com/resources/tcu/images/chefs/chef_large_<%=currentChef.shortname%>_default@2x.png' alt=<%=currentChef.shortname%>>
+            Season <%= currentChef.season_number %> <br>
+            Teaches <%= currentChef.teaches %> <br>
+            <%= currentChef.biotext %><br>
             </div>
-            <script type='text/javascript' src='public/swfobject.js'></script>
-            <script type="text/javascript" src="public/ParsedQueryString.js">
+            <h1 class='videoTitle'></h1>
+            <div id='VideoPlayer'></div>
+              <p id='vidDescription' class='description'></p>
+            </div>
+            <script type='text/javascript' src='/public/swfobject.js'></script>
+            <script type="text/javascript" src="/public/ParsedQueryString.js">
             </script>
             <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
             <script type="text/javascript">
-                var player = null;
-                    
-                $.getJSON('lessons.json', function(data) {
-                    var myString = $('.first').html();
-                    var urlPrefix = 'https://account.topchefuniversityapp.com/videos/v3/tcu/lesson_full_';
-                    var urlSuffix = '/playlists/playlist.m3u8?userid=';
-                    var userID = '<%= session[:userid].toString() %>';
-                    urlSuffix += userID + '&passhash=';
-                    var userPass = '<%=#{session[:token]}%>';
-                    urlSuffix += userPass;
-                    console.log(urlSuffix);
-                    $.each(data, function(index, element) {
-                        if (element.description && element.id && element.title) {
-                            if (element.id < 100) {
-                                element.id = "0" + element.id;
-                                if (element.id < 10) {
-                                    element.id = "0" + element.id;
-                                }
-                            }
-                            myString = myString + "<div class='playVid' vidUrl=\"" + urlPrefix + element.id + urlSuffix + "\" description=\"" + element.description + "\"><a href='javascript:void(0)'>" + element.title + "</a><br/></div>" 
-                     }
-                    });
-                    $('.first').html(myString);
-                    $( ".playVid" ).on( "click", function() {
-                        player.setMediaResourceURL($(this).attr('vidUrl'));
-                        $('#vidDescription').text($(this).attr('description'));
-                    });
-                });
-                    
-                function jsbridge(playerId, event, data) {
+               var player = null;
+                var chefName = "";
+                var chefShortName = "";
+                var vidID = '';
+                var jsonVidID = vidID;
+                    function jsbridge(playerId, event, data) {
                     if (player == null) {
                         player = document.getElementById(playerId);
                     }
                     switch(event) {
                         case "onJavaScriptBridgeCreated":
-                        listStreams(teststreams,"streamlist");
+                        listStreams(teststreams,"streamlist")
                         break;
                     case "timeChange":
                     case "timeupdate":
@@ -92,12 +79,21 @@
                       console.log(event, data);
                     }
                 }
-                    
+                var urlPrefix = 'https://account.topchefuniversityapp.com/videos/v3/tcu/';
+                var urlSuffix = 'chef_preview_'+ '<%=currentChef.shortname%>' + '/playlists/playlist.m3u8?userid='
+                var userID = '<%= session[:userid] %>';
+                var res = userID.split("@");
+                userID = encodeURIComponent(res[0]);
+                userID += '@' + res[1];
+                urlSuffix += userID + '&passhash=';
+                var userPass = '<%=session[:token]%>';
+                urlSuffix += userPass;
+                
                 var pqs = new ParsedQueryString();
                 var parameterNames = pqs.params(false);
                 var parameters = {
-                    src: encodeURIComponent("https://account.topchefuniversityapp.com/videos/v3/tcu/lesson_full_001/playlists/playlist.m3u8"),
-                    autoPlay: "false",
+                    src: encodeURIComponent(urlPrefix + vidID + urlSuffix),
+                    autoPlay: "true",
                     verbose: true,
                     controlBarAutoHide: "true",
                     controlBarPosition: "bottom",
@@ -146,6 +142,5 @@
                     name: 'player'
                 });
             </script>
-        </div>
-    </body>
-</html>
+        </body>
+      </html>

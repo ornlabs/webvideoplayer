@@ -131,7 +131,7 @@ post '/session' do
   url += "&passhash=" + parsed["token"]
   puts url
   authenticationJSON = RestClient.get url
-  session[:authedfor] = authenticationJSON
+  session[:authedfor] = JSON.parse(authenticationJSON)['iap_ids']
   puts session[:authedfor]
   redirect to('/main')
 end
@@ -139,13 +139,13 @@ end
 get '/videos/:videoID' do
   content_type :json
   lesson = Lesson.first(:id => params['videoID'])
-  authorized = [1, 6, 10]
   lesson.to_json
 end
 
 get '/video/:videoID' do
   session[:userid]
   session[:token]
+  session[:authedfor]
   erb :videos, :locals => {:videoID => params[:videoID], :access => true}
 end
 

@@ -83,8 +83,6 @@ get '/chefs' do
 end
 
 get '/chefs/:chefID' do
-  session[:userid]
-  session[:token]
   currentChef = Chef.get(params[:chefID])
   videosMadeByCurrentChef = Lesson.all(:chef_id => params[:chefID])
   erb :chefMenu, :locals => {:currentChef => currentChef, :videosMadeByCurrentChef => videosMadeByCurrentChef}
@@ -140,14 +138,9 @@ get '/videos/:videoID' do
 end
 
 get '/video/:videoID' do
-  session[:userid]
-  session[:token]
-  session[:authedfor]
   erb :videos, :locals => {:videoID => params[:videoID], :access => true}
 end
 
 get '/main' do 
-  session[:userid]
-  session[:token]
   erb :mainMenu
 end

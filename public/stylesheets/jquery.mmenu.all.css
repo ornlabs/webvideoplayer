@@ -1337,3 +1337,54 @@ html.mm-opened.mm-black .mm-page {
     background: black; }
 .mm-menu.mm-black input.mm-toggle:checked ~ label.mm-toggle {
   background: #4bd963; }
+
+
+
+@media all and (min-width: 900px){
+
+  #mm-blocker, .header .push-right {display: none !important;}
+
+  .mm-page {
+    box-shadow: none;
+    background: inherit;
+    width: 80% !important;
+    min-height: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    left: 20% !important;
+    top: 0 !important;
+    position: relative !important;
+    z-index: 1;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box; 
+  }
+
+  .icon-open-menu {display: none;}
+
+  .mm-menu {
+    position: fixed;
+    z-index: 0;
+    width: 20% !important;
+    padding: 0; 
+    
+    .nav__close {display: none;}
+  }
+
+  .mm-menu.mm-top, .mm-menu.mm-right, .mm-menu.mm-bottom {
+    top: 0 !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: 0 !important; 
+  }
+
+  .mm-menu:first-child, .mm-menu.mm-current {
+    display: block; 
+  }
+  .mm-panel {
+    box-shadow:inset -5px 0 20px rgba(0, 0, 0, 1);
+  }
+}
+

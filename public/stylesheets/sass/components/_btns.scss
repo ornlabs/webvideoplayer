@@ -6,10 +6,8 @@
   margin-bottom:$half-spacing-unit;
   @include transition(all .2s);
   position: relative;
-
-  font-family:$base-font-family;
+  //font-family:$base-font-family;
   //font-weight:700;
-
   font-size:1em;
   padding:$half-spacing-unit 16px;
   line-height: 1em;
@@ -40,9 +38,10 @@
 
   &.btn--drill {
     .fa:before {
-      padding:0 0 0 5px;
+      padding:0 0 0 5px !important;
     }
   }
+
 
   &.btn-google_oauth2 {
     background:$google;
@@ -112,6 +111,7 @@
       color:#fff;
     }
   }
+
 
   &:hover {
     background:lighten($button-1-background-color, 5%);

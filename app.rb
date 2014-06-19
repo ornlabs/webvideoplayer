@@ -57,6 +57,7 @@ DataMapper.auto_upgrade!
 
 get '/' do
   erb:postUserNameAndPassword
+  @title = "Welcome"
 end
 
 get '/lessons' do

@@ -11,14 +11,15 @@
 		<link rel="stylesheet" href="/stylesheets/jquery.mmenu.all.css">
 
 		<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-		<title></title>
+		
+		<title><!-- TODO --></title>
+		
 		<!--[if lt IE 9]>
 			<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
 
 	</head>
 	<body>
-
 		<nav id="menu">
 		   <ul>
 		      <li><a href="/">Home</a></li>
@@ -28,9 +29,12 @@
 		</nav>
 		<div class="wrapper">
 			<header>
-				<a href="#menu">Menu</a>
+				<a href="#menu" class="btn btn--mini fa fa-bars">Menu</a>
+				<img src="/images/logo.svg" alt="" class="brand">
 			</header>
-			<%= yield %>
+			<div class="l-container">
+				<%= yield %>
+			</div>
 		</div>
 		<script src="/scripts/jquery.mmenu.min.all.js"></script>
 		<script src="/scripts/app.js"></script>

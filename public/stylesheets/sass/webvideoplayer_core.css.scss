@@ -13,11 +13,6 @@
   */
 @charset "UTF-8";
 
-// FRAMEWORKS
-
-// Initialize Compass
-//@import "compass";
-
 // Initialize Inuit.css. 'vars' must be imported first as it includes variables
 
 // which control how much of the Inuit framework is included in the final
@@ -26,7 +21,7 @@
 @import "vars";
 @import "inuitcss/inuit";
 @import "csswizardry-grids";
-
+@import "fontawesome";
 
 // custom support mixins
 @import "mixins";
@@ -34,13 +29,5 @@
 @import "base";
 
 // components
-//@import "components/success_stories";
-//@import "components/comments";
-//@import "components/messages"; // used for system messages like announcements
-//@import "components/global"; // main menu/navigation, header, footer
-//@import "components/mmenu"; // styling specific to the Mmenu script for offscreen nav
-//@import "components/tables"; // main (mobile offscreen) menu/navigation
-//@import "components/datepicker"; // jquery-ui datepicker
+@import "components/forms"; // signin form
 @import "components/btns"; // buttons, of course
-//@import "components/forums"; // styling the discussion forums (main nav)
-//@import "components/users"; //users show page ID card styling

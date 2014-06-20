@@ -77,6 +77,7 @@ $color-2: #fff;
 $color-3: #fff;
 $color-4: #fff;
 $color-5: #173664;
+$color-6: lighten(#2265cb, 18%);
 //$color-4: adjust-hue($color-3, -18deg);
 //$color-5: #222;
 
@@ -143,7 +144,7 @@ $button-1-border-color: darken($button-1-background-color, 8%);
 $button-1-border-radius: $border-radius;
 
 
-$global-box-shadow: 0px 3px 6px transparentize(lighten($base-color, 25%), 0.6);
+$global-box-shadow: 0px 0px 14px transparentize(#000, 0.3);
   $global-box-shadow-light: 0px 1px 5px transparentize(lighten($base-color, 25%), 0.7);
 $global-box-shadow-active: 0 1px 1px 0 transparentize(lighten($base-color, 25%), 0.2);
 $global-box-shadow-inset: inset 0 1px 1px 0 lighten($base-color, 50%);

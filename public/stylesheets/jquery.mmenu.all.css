@@ -56,7 +56,7 @@
   .mm-menu .mm-list {
     padding: 20px 0; }
   .mm-menu > .mm-list {
-    padding: 20px 0 40px 0; }
+    padding: 0px 0 40px 0; }
 
 .mm-panel > .mm-list {
   margin-left: -20px;
@@ -76,7 +76,9 @@
   font-size: 14px; }
   .mm-list a,
   .mm-list a:hover {
-    text-decoration: none; }
+    text-decoration: none; 
+    color:#194A95;
+  }
   .mm-list > li {
     position: relative; }
     .mm-list > li > a,
@@ -1342,7 +1344,7 @@ html.mm-opened.mm-black .mm-page {
 
 @media all and (min-width: 900px){
 
-  #mm-blocker, .header .push-right {display: none !important;}
+  #mm-blocker, header .btn {display: none !important;}
 
   .mm-page {
     box-shadow: none;
@@ -1384,7 +1386,7 @@ html.mm-opened.mm-black .mm-page {
     display: block; 
   }
   .mm-panel {
-    box-shadow:inset -5px 0 20px rgba(0, 0, 0, 1);
+    box-shadow:inset -5px 0 20px rgba(0, 0, 0, .6);
   }
 }
 

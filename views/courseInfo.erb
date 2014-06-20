@@ -1,55 +1,50 @@
+<div class="course-info">
+  <h1 class="courseTitle"></h1>
+  <div class="courseImage"></div>
+</div>
 
-    
+<div class="main-list lessons">
+  <h1>Lesson Description</h1>
+  <div class="main-list description"></div>
+  <h3>Lesson Video</h3>
+  <div class="main-list lessons"></div>
+  <div class="lessonImage"></div>
+</div>
 
-        <div class='wrapper'>
-            <div class='first'>
-                <h2 class='courseTitle'></h2>
-                <div class='courseImage'></div>
-            </div>
-            <div class='second'>
-                <h2>Lesson Description</h2>
-                <div class='description'></div>
-                <h3>Lesson Video</h3>
-                <div class='lessons'></div>
-                <div class='lessonImage'></div>
-            </div>
-        </div>
-        
-        <script type="text/javascript">
-            var courseID = '<%= courseID %>'
-            var courseIDZ = "";
-            if (courseID < 10) {
-                courseIDZ = "0" + courseID;
-            } else {
-                courseIDZ = courseID;
+<script type="text/javascript">
+    var courseID = '<%= courseID %>'
+    var courseIDZ = "";
+    if (courseID < 10) {
+        courseIDZ = "0" + courseID;
+    } else {
+        courseIDZ = courseID;
+    }
+    $('.courseImage').html("<img src='https://account.topchefuniversityapp.com/resources/tcu/images/courses/course_" + courseIDZ + "_icon.jpg' />");
+    $.getJSON('/courses/' + courseID, function(data) {
+        $.getJSON('/singleCourse/' + courseID, function(course) {
+            $('.courseTitle').html(course.title);
+        });
+        var lessons = $('.course-info').html();
+        var description = $('.lessons').text();
+        $.each(data,function(index,element) {
+            lessons += "<a class='course' href='javascript:void(0)' vidID=\"" + element.id + "\" description=\"" + element.description + "\">" + element.title + "<\a>";
+        });
+        $('.course-info').html(lessons);
+        $('.course').on( "click", function() {
+            var description = $('.description').html();
+            description = $(this).attr('description');
+            $('.description').html(description);
+            $('.lessons').html("<a class='lesson' href='/video/" + $(this).attr('vidID') + "'>Watch now!</a>");
+            var lessID = $(this).attr('vidID');
+            if (lessID < 100) {
+                lessID = "0" + lessID;
+                if (lessID < 10) {
+                    lessID = "0" + lessID;
+                }
             }
-            $('.courseImage').html("<br><img src='https://account.topchefuniversityapp.com/resources/tcu/images/courses/course_" + courseIDZ + "_icon.jpg'></img>");
-            $.getJSON('/courses/' + courseID, function(data) {
-                $.getJSON('/singleCourse/' + courseID, function(course) {
-                    $('.courseTitle').html(course.title);
-                });
-                var lessons = $('.first').html();
-                var description = $('.second').text();
-                $.each(data,function(index,element) {
-                    lessons += "<a class='course' href='javascript:void(0)' vidID=\"" + element.id + "\" description=\"" + element.description + "\">" + element.title + "<\a><br>";
-                });
-                $('.first').html(lessons);
-                $('.course').on( "click", function() {
-                    var description = $('.description').html();
-                    description = $(this).attr('description');
-                    $('.description').html(description);
-                    $('.lessons').html("<a class='lesson' href='/video/" + $(this).attr('vidID') + "'>Watch now!</a>");
-                    var lessID = $(this).attr('vidID');
-                    if (lessID < 100) {
-                        lessID = "0" + lessID;
-                        if (lessID < 10) {
-                            lessID = "0" + lessID;
-                        }
-                    }
-                    $('.lessonImage').html("<img src='https://account.topchefuniversityapp.com/resources/tcu/images/lessons/TCU_lesson_" + lessID + "_image@2x.png'></img>");
-                    $('.description').text(description);
-                    $('.lessons').html("<a class='lesson' href='/video/" + $(this).attr('vidID') + "'>Watch now!</a>");
-                });
-            });
-        </script>
-   
+            $('.lessonImage').html("<img src='https://account.topchefuniversityapp.com/resources/tcu/images/lessons/TCU_lesson_" + lessID + "_image@2x.png' />");
+            $('.description').text(description);
+            $('.lessons').html("<a class='lesson' href='/video/" + $(this).attr('vidID') + "'>Watch now!</a>");
+        });
+    });
+</script>

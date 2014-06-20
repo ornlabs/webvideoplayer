@@ -6,7 +6,7 @@
  *****/
 
 /* Web Fonts @import */
-@import url(http://fonts.googleapis.com/css?family=Alegreya+Sans+SC:500|Alegreya+Sans:300,400,500,700,800,400italic,500italic|Alegreya:400italic,700italic,400,700|Alegreya+SC:400,700);
+//@import url(http://fonts.googleapis.com/css?family=Alegreya+Sans+SC:500|Alegreya+Sans:300,400,500,700,800,400italic,500italic|Alegreya:400italic,700italic,400,700|Alegreya+SC:400,700);
 
 html {
   height: 100%;
@@ -17,7 +17,6 @@ body {
   font: $base-font-size $base-font-family;
   line-height: $base-line-height;
   color:$base-color;
-  max-width:1120px;
   margin:0 auto;
   overflow-x: hidden;
   background:$body-background; // image-url('page-background.png') 
@@ -25,9 +24,9 @@ body {
 }
 
 h1, .alpha, %alpha {
-  font:300 2.6em/1 $heading-font-family;
+  font:300 2.8em/.9 $heading-font-family;
   color: $heading-color;
-  margin-bottom:$quarter-spacing-unit;
+  margin-bottom:$half-spacing-unit;
 }
 
 h2, .beta, %beta {
@@ -83,11 +82,7 @@ a {
   @include transition(color .2s);
 
   &:hover, &:focus, &:active {
-    color: $accent-color;
-  }
-
-  &.destroy {
-    //background-color: $warning-color;
+    color:$color-6;
   }
 }
 
@@ -109,28 +104,63 @@ img {
 
 
 
-
-
-
-
-
-.wrapper {
-  //padding:$base-spacing-unit;
-}
 header {
   background:$header-color;
+  border-bottom:1px solid darken($header-color, 8%);
   padding:$half-spacing-unit;
-  position: relative;
+  position: fixed;
+  height:44px;
+  width:100%;
+  z-index:3;
+  box-shadow:$global-box-shadow;
 
   .btn {
     margin:0;
+    z-index:2;
   }
 
   .brand {
     position: absolute;
-    max-height:30px;
+    max-height: 30px;
+    width: 100%;
+    display: block;
+    top: 6px;
   }
 }
+
+.main-list {
+  a {
+    text-align: center;
+    margin-bottom: $base-spacing-unit*1.5;
+    
+    &:hover {
+      color:$color-6;
+    }
+
+    img {
+      display: block;
+      //margin:$quarter-spacing-unit 0 $base-spacing-unit*1.5;
+      //max-width:50%;
+    }
+    &.chef {
+      
+      display: block;
+      
+      img {
+        margin-bottom:0;
+      }
+    } 
+  }
+}
+
+.course {
+  display: block;
+}
+
+
+
+
+
 
 
 
@@ -150,8 +180,6 @@ header {
 }
 
 
-
-
 //OVERRIDES
 .table--striped tbody tr:nth-of-type(even) {
   background-color: #f8f8f8;
@@ -165,7 +193,6 @@ h3, .gamma, %gamma {
 .split {
   overflow: hidden;
 }
-
 .grid__fieldset {
   margin-left:0;
 }
@@ -205,7 +232,6 @@ h3, .gamma, %gamma {
     width:200px;
     @include border-radius;
   }
-
 }
 
 
@@ -367,9 +393,6 @@ h3, .gamma, %gamma {
   font-weight: 700;
   font-size:.8em;
 }
-
-
-
 
 
 

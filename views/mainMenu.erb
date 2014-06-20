@@ -18,7 +18,7 @@
 			} else {}
 			url += element.id;
 			url += "_image@2x.png"
-			courses += "<a class='course' href='course/" + element.id + "' course_id='" + element.id + "'>" + "<img src=" + url + " alt=" +element.id+">" + element.title + "<\a>";
+			courses += "<a class='course media' href='course/" + element.id + "' course_id='" + element.id + "'>" + "<img src=" + url + " alt=" +element.id+" class='media__img'>" + "<h2 class='media__body'>" + element.title + "</h2>" + "<\a>";
 		});
 		$(".courses").html(courses);
 	});
@@ -35,4 +35,4 @@
 		});
 		$(".chefs").html(chefs);
 	});
-</script> 
+</script>

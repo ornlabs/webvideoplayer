@@ -28,14 +28,7 @@
                     }
                 }
                 toCheck += vidID;
-                //console.log(toCheck);
-                //console.log(authArray);
-                //console.log(authArray[0].product_id);
-                
-                //console.log(authArray.iap_ids); //UNDEFINED===============================
                 for (element in authArray) {
-                    //console.log(authArray[element]);
-                    //console.log(authArray[element].product_id[0]);
                     if (authArray[element].product_id[0] == toCheck || authArray[element].product_id[0] == "com.topchefu.iap.master.all") {
                         hasAccess = true;
                     }

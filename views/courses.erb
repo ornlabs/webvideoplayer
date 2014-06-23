@@ -11,7 +11,7 @@
       title += "<a class='course' href='javascript:void(0)' course_id='" + element.id + "'>" + element.title + "<\a><br>";
     });
     $(".first").html(title);
-    //why does this have to be inside the original $.getJSON? - Joe
+    //why does this have to be inside the original $.getJSON? - Joe. I believe because all JSON calls are related they can't talk
     $(".course").on("click", function() {
       var url = "courses/" + $(this).attr('course_id');
       $.getJSON(url, function(data) {

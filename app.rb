@@ -39,7 +39,6 @@ class Course
 
   has n, :lessons
 end
-
 class Chef
   include DataMapper::Resource
   property :id,              Serial
@@ -54,22 +53,21 @@ class Chef
 end
 DataMapper.finalize
 DataMapper.auto_upgrade!
-
 get '/' do
   erb:postUserNameAndPassword
 end
 
-get '/lessons' do
+get '/lessons' do #display all lessons
   content_type :json
   lessons = Lesson.all
   lessons.to_json
 end
 
-get '/course/:courseID' do
+get '/course/:courseID' do # open up particular lesson
   erb :courseInfo, :locals => {:courseID => params['courseID']}
 end
 
-get '/courses/:courseID' do
+get '/courses/:courseID' do #open courses 
   content_type :json
   lessons = Lesson.all(:course_id => params[:courseID])
   lessons.to_json

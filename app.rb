@@ -137,7 +137,7 @@ end
 get '/video/:videoID' do
   erb :videos, :locals => {:videoID => params[:videoID], :access => true}
 end
-
+#clean up some of these variables in files
 get '/main' do 
   erb :mainMenu
 end
